@@ -1,0 +1,66 @@
+{
+    "requestId": "4c5e80bc-f088-44e1-9763-0c8f8508daa0",
+    "result": {
+        "password": "p.1t9vCctiC9w",
+        "service": {
+            "availablePrivateEndpointIds": [],
+            "clickhouseVersion": "25.12",
+            "createdAt": "2026-05-28T08:08:42Z",
+            "currentScaling": {
+                "effectiveAutoscalingMode": "vertical",
+                "effectiveIdleScaling": false,
+                "effectiveIdleTimeoutMinutes": 1440,
+                "effectiveMaxReplicaMemoryGb": 16,
+                "effectiveMaxReplicas": 2,
+                "effectiveMinReplicaMemoryGb": 16,
+                "effectiveMinReplicas": 2
+            },
+            "dataWarehouseId": "ef68a3ce-65ac-40ef-a178-d748e215790b",
+            "enableCoreDumps": true,
+            "endpoints": [
+                {
+                    "host": "wu21xpplbe.eu-central-1.aws.clickhouse.cloud",
+                    "port": 9440,
+                    "protocol": "nativesecure"
+                },
+                {
+                    "host": "wu21xpplbe.eu-central-1.aws.clickhouse.cloud",
+                    "port": 8443,
+                    "protocol": "https"
+                }
+            ],
+            "hasTransparentDataEncryption": false,
+            "iamRole": "arn:aws:iam::050803179903:role/CH-S3-heatheraws-bq-31-ec1-82-Role",
+            "id": "7f732cd5-3048-4fa3-bb01-b318c1a20521",
+            "idleScaling": false,
+            "idleTimeoutMinutes": 1440,
+            "ipAccessList": [
+                {
+                    "description": "airflow",
+                    "source": "51.89.4.122"
+                },
+                {
+                    "description": "benchmarkInstance",
+                    "source": "3.121.87.0"
+                }
+            ],
+            "isPrimary": true,
+            "isReadonly": false,
+            "maxReplicaMemoryGb": 16,
+            "maxTotalMemoryGb": 48,
+            "mcpEnabled": false,
+            "minReplicaMemoryGb": 16,
+            "minTotalMemoryGb": 48,
+            "name": "benchant-1f7480cc-dbec-57e1-b09a-7fc3c87332da",
+            "numReplicas": 2,
+            "privateEndpointIds": [],
+            "profile": "v1-default",
+            "provider": "aws",
+            "region": "eu-central-1",
+            "releaseChannel": "default",
+            "state": "provisioning",
+            "tags": []
+        }
+    },
+    "status": 200
+}

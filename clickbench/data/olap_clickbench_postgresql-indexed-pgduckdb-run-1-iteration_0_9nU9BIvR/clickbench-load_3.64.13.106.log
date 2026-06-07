@@ -1,0 +1,83 @@
+========================================================
+=== ClickBench PostgreSQL Load
+=== Started : Sat May 16 06:01:52 UTC 2026
+========================================================
+
+    Host     : 35.159.228.102:5432
+    Database : benchantdb
+
+--- Dropping existing hits table (if any) ---
+NOTICE:  table "hits" does not exist, skipping
+DROP TABLE
+[DONE]  DROP TABLE IF EXISTS hits
+
+--- Creating schema ---
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+psql:/home/ubuntu/clickbench-load/schema.sql:130: ERROR:  operator class "gin_trgm_ops" does not exist for access method "gin"
+[DONE]  Schema created
+
+--- Loading data ---
+[LOAD]  hits <- hits.csv.gz (started: Sat May 16 06:01:54 UTC 2026)
+BEGIN
+TRUNCATE TABLE
+COPY 99997497
+COMMIT
+[DONE]  Data loaded (finished: Sat May 16 08:24:34 UTC 2026)
+
+--- Running VACUUM ANALYZE ---
+VACUUM
+[DONE]  VACUUM ANALYZE
+
+--- PostgreSQL version ---
+ PostgreSQL 17.10 (Ubuntu 17.10-1.pgdg22.04+1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0, 64-bit
+
+
+--- Installed extensions ---
+   name    | default_version | installed_version |           comment            
+-----------+-----------------+-------------------+------------------------------
+ pg_duckdb | 1.1.0           | 1.1.0             | DuckDB Embedded in Postgres
+ plpgsql   | 1.0             | 1.0               | PL/pgSQL procedural language
+(2 rows)
+
+
+--- Indexes on hits table ---
+    indexname    |                                                indexdef                                                 
+-----------------+---------------------------------------------------------------------------------------------------------
+ adveng          | CREATE INDEX adveng ON public.hits USING btree (advengineid)
+ cid             | CREATE INDEX cid ON public.hits USING btree (counterid)
+ eventdate       | CREATE INDEX eventdate ON public.hits USING btree (eventdate)
+ eventtime       | CREATE INDEX eventtime ON public.hits USING btree (eventtime)
+ mobile          | CREATE INDEX mobile ON public.hits USING btree (mobilephonemodel)
+ mobile2         | CREATE INDEX mobile2 ON public.hits USING btree (mobilephonemodel) WHERE (mobilephonemodel <> ''::text)
+ mobileuser      | CREATE INDEX mobileuser ON public.hits USING btree (mobilephonemodel, userid)
+ refresh         | CREATE INDEX refresh ON public.hits USING btree (isrefresh, dontcounthits)
+ regid           | CREATE INDEX regid ON public.hits USING btree (regionid)
+ regionuser      | CREATE INDEX regionuser ON public.hits USING btree (regionid, userid)
+ resolutionwidth | CREATE INDEX resolutionwidth ON public.hits USING btree (resolutionwidth)
+ search          | CREATE INDEX search ON public.hits USING btree (searchphrase)
+ search2         | CREATE INDEX search2 ON public.hits USING btree (searchphrase) WHERE (searchphrase <> ''::text)
+ userid          | CREATE INDEX userid ON public.hits USING btree (userid)
+ useridsearch    | CREATE INDEX useridsearch ON public.hits USING btree (userid, searchphrase)
+ widcip          | CREATE INDEX widcip ON public.hits USING btree (watchid, clientip)
+(16 rows)
+
+
+========================================================
+=== Load complete : Sat May 16 08:25:13 UTC 2026
+========================================================

@@ -1,0 +1,179 @@
+{
+    "data_results": [
+        {
+            "ami_launch_index": 0,
+            "architecture": "x86_64",
+            "block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "ebs": {
+                        "attach_time": "2026-05-28T12:12:14+00:00",
+                        "delete_on_termination": true,
+                        "status": "attached",
+                        "volume_id": "vol-081f4e26f8d388cbf"
+                    }
+                }
+            ],
+            "boot_mode": "uefi-preferred",
+            "capacity_reservation_specification": {
+                "capacity_reservation_preference": "open"
+            },
+            "client_token": "9cff8549f06444b58ea4012a2021637e",
+            "cpu_options": {
+                "core_count": 4,
+                "threads_per_core": 2
+            },
+            "current_instance_boot_mode": "uefi",
+            "ebs_optimized": false,
+            "ena_support": true,
+            "enclave_options": {
+                "enabled": false
+            },
+            "hibernation_options": {
+                "configured": false
+            },
+            "hypervisor": "xen",
+            "image_id": "ami-0c905937c14bd22b0",
+            "instance_id": "i-0fbcd78f908064818",
+            "instance_type": "m7i.2xlarge",
+            "key_name": "baas_dev",
+            "launch_time": "2026-05-28T12:12:14+00:00",
+            "maintenance_options": {
+                "auto_recovery": "default"
+            },
+            "metadata_options": {
+                "http_endpoint": "enabled",
+                "http_protocol_ipv6": "disabled",
+                "http_put_response_hop_limit": 1,
+                "http_tokens": "optional",
+                "instance_metadata_tags": "disabled",
+                "state": "applied"
+            },
+            "monitoring": {
+                "state": "disabled"
+            },
+            "network_interfaces": [
+                {
+                    "association": {
+                        "ip_owner_id": "amazon",
+                        "public_dns_name": "ec2-18-153-210-78.eu-central-1.compute.amazonaws.com",
+                        "public_ip": "18.153.210.78"
+                    },
+                    "attachment": {
+                        "attach_time": "2026-05-28T12:12:14+00:00",
+                        "attachment_id": "eni-attach-00d3d3eeacc0ff727",
+                        "delete_on_termination": true,
+                        "device_index": 0,
+                        "network_card_index": 0,
+                        "status": "attached"
+                    },
+                    "description": "",
+                    "groups": [
+                        {
+                            "group_id": "sg-03794c385ccc5fef5",
+                            "group_name": "benchant-monitoring"
+                        },
+                        {
+                            "group_id": "sg-3734875b",
+                            "group_name": "default"
+                        },
+                        {
+                            "group_id": "sg-070a926c34814caba",
+                            "group_name": "baas-dbms"
+                        },
+                        {
+                            "group_id": "sg-094cb4a4651310ea0",
+                            "group_name": "baas-ssh"
+                        }
+                    ],
+                    "interface_type": "interface",
+                    "ipv6_addresses": [],
+                    "mac_address": "02:95:58:f4:2d:77",
+                    "network_interface_id": "eni-02fa982ae71cdefbc",
+                    "operator": {
+                        "managed": false
+                    },
+                    "owner_id": "584241909684",
+                    "private_dns_name": "ip-172-31-22-249.eu-central-1.compute.internal",
+                    "private_ip_address": "172.31.22.249",
+                    "private_ip_addresses": [
+                        {
+                            "association": {
+                                "ip_owner_id": "amazon",
+                                "public_dns_name": "ec2-18-153-210-78.eu-central-1.compute.amazonaws.com",
+                                "public_ip": "18.153.210.78"
+                            },
+                            "primary": true,
+                            "private_dns_name": "ip-172-31-22-249.eu-central-1.compute.internal",
+                            "private_ip_address": "172.31.22.249"
+                        }
+                    ],
+                    "source_dest_check": true,
+                    "status": "in-use",
+                    "subnet_id": "subnet-324f4259",
+                    "vpc_id": "vpc-d58ed7be"
+                }
+            ],
+            "network_performance_options": {
+                "bandwidth_weighting": "default"
+            },
+            "operator": {
+                "managed": false
+            },
+            "placement": {
+                "availability_zone": "eu-central-1a",
+                "group_name": "",
+                "tenancy": "default"
+            },
+            "platform_details": "Linux/UNIX",
+            "private_dns_name": "ip-172-31-22-249.eu-central-1.compute.internal",
+            "private_dns_name_options": {
+                "enable_resource_name_dns_a_record": false,
+                "enable_resource_name_dns_aaaa_record": false,
+                "hostname_type": "ip-name"
+            },
+            "private_ip_address": "172.31.22.249",
+            "product_codes": [],
+            "public_dns_name": "ec2-18-153-210-78.eu-central-1.compute.amazonaws.com",
+            "public_ip_address": "18.153.210.78",
+            "root_device_name": "/dev/sda1",
+            "root_device_type": "ebs",
+            "security_groups": [
+                {
+                    "group_id": "sg-03794c385ccc5fef5",
+                    "group_name": "benchant-monitoring"
+                },
+                {
+                    "group_id": "sg-3734875b",
+                    "group_name": "default"
+                },
+                {
+                    "group_id": "sg-070a926c34814caba",
+                    "group_name": "baas-dbms"
+                },
+                {
+                    "group_id": "sg-094cb4a4651310ea0",
+                    "group_name": "baas-ssh"
+                }
+            ],
+            "source_dest_check": true,
+            "state": {
+                "code": 16,
+                "name": "running"
+            },
+            "state_transition_reason": "",
+            "subnet_id": "subnet-324f4259",
+            "tags": {
+                "Name": "benchANT-POSTGRESQL-data-4c9a58fe-be3f-567d-9ef4-0318655212df",
+                "configurationId": "postgresql-pgduckdb-10gb-load",
+                "project": "olap",
+                "service": "benchANT",
+                "type": "dbms"
+            },
+            "usage_operation": "RunInstances",
+            "usage_operation_update_time": "2026-05-28T12:12:14+00:00",
+            "virtualization_type": "hvm",
+            "vpc_id": "vpc-d58ed7be"
+        }
+    ]
+}

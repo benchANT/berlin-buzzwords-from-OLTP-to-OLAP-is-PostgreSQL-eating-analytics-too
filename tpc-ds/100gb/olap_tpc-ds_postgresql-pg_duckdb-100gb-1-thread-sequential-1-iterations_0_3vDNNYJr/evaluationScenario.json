@@ -1,0 +1,126 @@
+{
+  "metadata": {
+    "userId": "benchANT",
+    "projectId": "olap",
+    "batchId": "tpc-ds",
+    "configurationId": "postgresql-pg_duckdb-100gb-1-thread-sequential-1-iterations",
+    "executions": 1,
+    "executionCounter": 1,
+    "parentRunId": "olap_tpc-ds_postgresql-100gb-load_0_RPVXH2WE",
+    "keepDeployment": true
+  },
+  "resourceProvider": {
+    "name": "EC2",
+    "api": "EC2"
+  },
+  "dbmsDeployment": {
+    "dbmsType": "POSTGRESQL",
+    "operationType": "DBMS",
+    "version": "17",
+    "DBMS": {
+      "dataNodes": {
+        "numberOfNodes": 1,
+        "resource": {
+          "ec2Vm": {
+            "regionName": "eu-central-1",
+            "instanceType": "m7i.2xlarge",
+            "architecture": "x86_64",
+            "imageDistribution": "ubuntu",
+            "imageVersion": "22.04",
+            "volumeType": "GP3",
+            "volumeSize": 500,
+            "iops": 12000
+          }
+        },
+        "replicationFactor": 1,
+        "memoryAllocation": 0.25,
+        "postgresqlConfiguration": {
+          "useDuckDBExtension": true,
+          "effectiveCacheSize": "24GB",
+          "maintenanceWorkMem": "4GB",
+          "checkpointCompletionTarget": 0.9,
+          "walBuffers": "16MB",
+          "defaultStatisticsTarget": 500,
+          "randomPageCost": 4.0,
+          "effectiveIoConcurrency": 200,
+          "workMemory": "38836kB",
+          "minWalSize": "4GB",
+          "maxWalSize": "16GB",
+          "maxWorkerProcesses": 8,
+          "maxParallelWorkersPerGather": 4,
+          "maxParallelWorkers": 8,
+          "maxParallelMaintenanceWorkers": 4,
+          "hugePages": "try",
+          "extensions": {
+            "pgduckdb": {
+              "version": "v1.1.1",
+              "duckDbForceExecution": false,
+              "memoryLimit": 24096,
+              "workerThreads": 8,
+              "maxWorkersPerPostgresScan": 4,
+              "threadsForPostgresScan": 4
+            }
+          }
+        }
+      }
+    }
+  },
+  "benchmarkDeployment": {
+    "benchmarkNodes": {
+      "numberOfNodes": 1,
+      "resource": {
+        "ec2Vm": {
+          "regionName": "eu-central-1",
+          "instanceType": "c6i.4xlarge",
+          "architecture": "x86_64",
+          "imageDistribution": "ubuntu",
+          "imageVersion": "22.04",
+          "volumeType": "GP2",
+          "volumeSize": 250
+        }
+      }
+    }
+  },
+  "benchmark": {
+    "id": "benchANT-TPCDS",
+    "distribution": "BENCHANTTPCDS",
+    "version": "benchant-olap-main",
+    "benchantTPCDS": {
+      "dbmsEndpoints": [],
+      "workload": {
+        "s3SchemaUri": "s3://benchant-olap-data/tpc-ds/postgresql/schemas/tpcds-default.sql",
+        "s3DataUri": "s3://benchant-olap-data/tpc-ds/postgresql/data/100gb/",
+        "workloadClass": "site.ycsb.workloads.OlapWorkload",
+        "maxExecutionTime": 14400,
+        "threadCount": 1,
+        "operationCount": 10,
+        "querySet": "TPCDS",
+        "queriesLowerBound": 16,
+        "queriesUpperBound": 25,
+        "queryList": [
+          "query16",
+          "query17",
+          "query18",
+          "query19",
+          "query20",
+          "query21",
+          "query22",
+          "query23",
+          "query24",
+          "query25"
+        ],
+        "querySelectionStrategy": "SEQUENTIAL",
+        "sequentialCount": 1,
+        "tpcdsCskUpperBound": 2000000,
+        "tpcdsSdtUpperBound": 2452642,
+        "tpcdsSdtLowerBound": 2450816,
+        "tpcdsManagerUpperBound": 100,
+        "tpcdsItemUpperBound": 204000,
+        "tpcdsItemLowerBound": 1,
+        "tpcdsCities": 18,
+        "tpcdsCounties": 9,
+        "debug": false
+      }
+    }
+  }
+}

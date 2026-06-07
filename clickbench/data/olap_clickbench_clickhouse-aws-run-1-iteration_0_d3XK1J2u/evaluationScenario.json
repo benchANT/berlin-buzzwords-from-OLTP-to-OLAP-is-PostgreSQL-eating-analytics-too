@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "userId": "benchANT",
+    "projectId": "olap",
+    "batchId": "clickbench",
+    "configurationId": "clickhouse-aws-run-1-iteration",
+    "executions": 1,
+    "executionCounter": 1,
+    "parentRunId": "olap_clickbench_clickhouse-aws-load_0_hGUjxLJV",
+    "keepDeployment": true
+  },
+  "resourceProvider": {
+    "name": "EC2",
+    "api": "EC2"
+  },
+  "dbaasProvider": {
+    "name": "CLICKHOUSE",
+    "api": "CLICKHOUSE"
+  },
+  "dbmsDeployment": {
+    "dbmsType": "CLICKHOUSE",
+    "operationType": "DBAAS",
+    "version": "latest",
+    "DBAAS": {
+      "clickhouseInstance": {
+        "provider": "aws",
+        "region": "eu-central-1",
+        "minReplicaMemoryGb": 16,
+        "maxReplicaMemoryGb": 16,
+        "numReplicas": 2,
+        "password": "bx1Pb_r7_Hucm",
+        "clientConfiguration": {
+          "maxConnections": 100,
+          "timeout": 600
+        }
+      }
+    }
+  },
+  "benchmarkDeployment": {
+    "benchmarkNodes": {
+      "numberOfNodes": 1,
+      "resource": {
+        "ec2Vm": {
+          "regionName": "eu-central-1",
+          "instanceType": "c6i.4xlarge",
+          "architecture": "x86_64",
+          "imageDistribution": "ubuntu",
+          "imageVersion": "22.04",
+          "volumeType": "GP2",
+          "volumeSize": 250
+        }
+      }
+    }
+  },
+  "benchmark": {
+    "id": "clickbench",
+    "distribution": "CLICKBENCH",
+    "version": "benchant-olap-main",
+    "clickBench": {
+      "dbmsEndpoints": [],
+      "workload": {
+        "s3SchemaUri": "s3://benchant-olap-data/clickbench/clickhouse/schema.sql",
+        "s3DataUri": "s3://benchant-olap-data/clickbench/hits.csv.gz",
+        "workloadClass": "site.ycsb.workloads.OlapWorkload",
+        "maxExecutionTime": 3600,
+        "threadCount": 1,
+        "operationCount": 43,
+        "querySet": "CLICKBENCH",
+        "queriesLowerBound": 1,
+        "queriesUpperBound": 43,
+        "queryList": [
+          "query01",
+          "query02",
+          "query03",
+          "query04",
+          "query05",
+          "query06",
+          "query07",
+          "query08",
+          "query09",
+          "query10",
+          "query11",
+          "query12",
+          "query13",
+          "query14",
+          "query15",
+          "query16",
+          "query17",
+          "query18",
+          "query19",
+          "query20",
+          "query21",
+          "query22",
+          "query23",
+          "query24",
+          "query25",
+          "query26",
+          "query27",
+          "query28",
+          "query29",
+          "query30",
+          "query31",
+          "query32",
+          "query33",
+          "query34",
+          "query35",
+          "query36",
+          "query37",
+          "query38",
+          "query39",
+          "query40",
+          "query41",
+          "query42",
+          "query43"
+        ],
+        "querySelectionStrategy": "SEQUENTIAL",
+        "sequentialCount": 1,
+        "debug": false
+      }
+    }
+  }
+}

@@ -1,0 +1,602 @@
+bin/ycsb run clickhouse  -s -jvm-args=-XX:MaxRAMPercentage=85.0  -p clickhouse.endpoint="https://ri68xbz744.eu-central-1.aws.clickhouse.cloud:8443"  -p clickhouse.user=default  -p clickhouse.database=benchantdb -p clickhouse.password="bx1Pb_r7_Hucm"  -p clickhouse.timeout=600 -p clickhouse.maxConnections=100 -p maxexecutiontime=3600 -p operationcount=43 -threads 1 -p workload=site.ycsb.workloads.OlapWorkload -p olap.queryset=clickbench -p olap.queries.lower=1 -p olap.queries.upper=43 -p olap.queryselection=n-sequential  -p olap.queryselection.sequential.count=1 -p olap.queries.list=query01,query02,query03,query04,query05,query06,query07,query08,query09,query10,query11,query12,query13,query14,query15,query16,query17,query18,query19,query20,query21,query22,query23,query24,query25,query26,query27,query28,query29,query30,query31,query32,query33,query34,query35,query36,query37,query38,query39,query40,query41,query42,query43
+/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java -XX:MaxRAMPercentage=85.0 -cp /binary/ycsb/clickhouse-binding/conf:/binary/ycsb/conf:/binary/ycsb/lib/htrace-core4-4.1.0-incubating.jar:/binary/ycsb/lib/HdrHistogram-2.1.4.jar:/binary/ycsb/lib/jackson-mapper-asl-1.9.4.jar:/binary/ycsb/lib/jackson-core-asl-1.9.4.jar:/binary/ycsb/lib/core-0.18.0-SNAPSHOT.jar:/binary/ycsb/clickhouse-binding/lib/commons-compress-1.27.1.jar:/binary/ycsb/clickhouse-binding/lib/clickhouse-http-client-0.7.1-patch1.jar:/binary/ycsb/clickhouse-binding/lib/slf4j-simple-1.7.25.jar:/binary/ycsb/clickhouse-binding/lib/commons-lang3-3.16.0.jar:/binary/ycsb/clickhouse-binding/lib/httpclient5-5.3.1.jar:/binary/ycsb/clickhouse-binding/lib/asm-9.7.jar:/binary/ycsb/clickhouse-binding/lib/clickhouse-data-0.7.1-patch1.jar:/binary/ycsb/clickhouse-binding/lib/lz4-java-1.8.0.jar:/binary/ycsb/clickhouse-binding/lib/jackson-core-2.17.2.jar:/binary/ycsb/clickhouse-binding/lib/lz4-pure-java-1.8.0.jar:/binary/ycsb/clickhouse-binding/lib/clickhouse-binding-0.18.0-SNAPSHOT.jar:/binary/ycsb/clickhouse-binding/lib/clickhouse-client-0.7.1-patch1.jar:/binary/ycsb/clickhouse-binding/lib/httpcore5-h2-5.2.4.jar:/binary/ycsb/clickhouse-binding/lib/commons-codec-1.17.1.jar:/binary/ycsb/clickhouse-binding/lib/client-v2-0.7.1-patch1.jar:/binary/ycsb/clickhouse-binding/lib/slf4j-api-1.7.25.jar:/binary/ycsb/clickhouse-binding/lib/httpcore5-5.2.1.jar:/binary/ycsb/clickhouse-binding/lib/commons-io-2.16.1.jar site.ycsb.Client -db site.ycsb.db.ClickhouseClient -s -p clickhouse.endpoint=https://ri68xbz744.eu-central-1.aws.clickhouse.cloud:8443 -p clickhouse.user=default -p clickhouse.database=benchantdb -p clickhouse.password=bx1Pb_r7_Hucm -p clickhouse.timeout=600 -p clickhouse.maxConnections=100 -p maxexecutiontime=3600 -p operationcount=43 -threads 1 -p workload=site.ycsb.workloads.OlapWorkload -p olap.queryset=clickbench -p olap.queries.lower=1 -p olap.queries.upper=43 -p olap.queryselection=n-sequential -p olap.queryselection.sequential.count=1 -p olap.queries.list=query01,query02,query03,query04,query05,query06,query07,query08,query09,query10,query11,query12,query13,query14,query15,query16,query17,query18,query19,query20,query21,query22,query23,query24,query25,query26,query27,query28,query29,query30,query31,query32,query33,query34,query35,query36,query37,query38,query39,query40,query41,query42,query43 -t
+Command line: -db site.ycsb.db.ClickhouseClient -s -p clickhouse.endpoint=https://ri68xbz744.eu-central-1.aws.clickhouse.cloud:8443 -p clickhouse.user=default -p clickhouse.database=benchantdb -p clickhouse.password=bx1Pb_r7_Hucm -p clickhouse.timeout=600 -p clickhouse.maxConnections=100 -p maxexecutiontime=3600 -p operationcount=43 -threads 1 -p workload=site.ycsb.workloads.OlapWorkload -p olap.queryset=clickbench -p olap.queries.lower=1 -p olap.queries.upper=43 -p olap.queryselection=n-sequential -p olap.queryselection.sequential.count=1 -p olap.queries.list=query01,query02,query03,query04,query05,query06,query07,query08,query09,query10,query11,query12,query13,query14,query15,query16,query17,query18,query19,query20,query21,query22,query23,query24,query25,query26,query27,query28,query29,query30,query31,query32,query33,query34,query35,query36,query37,query38,query39,query40,query41,query42,query43 -t
+YCSB Client 0.18.0-SNAPSHOT
+
+Loading workload...
+Initializing TPC-DS Workload
+running 43 iterations per thread
+searching for resource clickbench/query01
+adding query: query01 --- SELECT COUNT(*) FROM hits;
+
+searching for resource clickbench/query02
+adding query: query02 --- SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;
+
+searching for resource clickbench/query03
+adding query: query03 --- SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;
+
+searching for resource clickbench/query04
+adding query: query04 --- SELECT AVG(UserID) FROM hits;
+
+searching for resource clickbench/query05
+adding query: query05 --- SELECT COUNT(DISTINCT UserID) FROM hits;
+
+searching for resource clickbench/query06
+adding query: query06 --- SELECT COUNT(DISTINCT SearchPhrase) FROM hits;
+
+searching for resource clickbench/query07
+adding query: query07 --- SELECT MIN(EventDate), MAX(EventDate) FROM hits;
+
+searching for resource clickbench/query08
+adding query: query08 --- SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;
+
+searching for resource clickbench/query09
+adding query: query09 --- SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;
+
+searching for resource clickbench/query10
+adding query: query10 --- SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query11
+adding query: query11 --- SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;
+
+searching for resource clickbench/query12
+adding query: query12 --- SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC LIMIT 10;
+
+searching for resource clickbench/query13
+adding query: query13 --- SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query14
+adding query: query14 --- SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;
+
+searching for resource clickbench/query15
+adding query: query15 --- SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query16
+adding query: query16 --- SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;
+
+searching for resource clickbench/query17
+adding query: query17 --- SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;
+
+searching for resource clickbench/query18
+adding query: query18 --- SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;
+
+searching for resource clickbench/query19
+adding query: query19 --- SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;
+
+searching for resource clickbench/query20
+adding query: query20 --- SELECT UserID FROM hits WHERE UserID = 435090932899640449;
+
+searching for resource clickbench/query21
+adding query: query21 --- SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';
+
+searching for resource clickbench/query22
+adding query: query22 --- SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query23
+adding query: query23 --- SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query24
+adding query: query24 --- SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;
+
+searching for resource clickbench/query25
+adding query: query25 --- SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;
+
+searching for resource clickbench/query26
+adding query: query26 --- SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;
+
+searching for resource clickbench/query27
+adding query: query27 --- SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;
+
+searching for resource clickbench/query28
+adding query: query28 --- SELECT CounterID, AVG(length(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;
+
+searching for resource clickbench/query29
+adding query: query29 --- SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\.)?([^/]+)/.*$', '\1') AS k, AVG(length(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> '' GROUP BY k HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;
+
+searching for resource clickbench/query30
+adding query: query30 --- SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), SUM(ResolutionWidth + 6), SUM(ResolutionWidth + 7), SUM(ResolutionWidth + 8), SUM(ResolutionWidth + 9), SUM(ResolutionWidth + 10), SUM(ResolutionWidth + 11), SUM(ResolutionWidth + 12), SUM(ResolutionWidth + 13), SUM(ResolutionWidth + 14), SUM(ResolutionWidth + 15), SUM(ResolutionWidth + 16), SUM(ResolutionWidth + 17), SUM(ResolutionWidth + 18), SUM(ResolutionWidth + 19), SUM(ResolutionWidth + 20), SUM(ResolutionWidth + 21), SUM(ResolutionWidth + 22), SUM(ResolutionWidth + 23), SUM(ResolutionWidth + 24), SUM(ResolutionWidth + 25), SUM(ResolutionWidth + 26), SUM(ResolutionWidth + 27), SUM(ResolutionWidth + 28), SUM(ResolutionWidth + 29), SUM(ResolutionWidth + 30), SUM(ResolutionWidth + 31), SUM(ResolutionWidth + 32), SUM(ResolutionWidth + 33), SUM(ResolutionWidth + 34), SUM(ResolutionWidth + 35), SUM(ResolutionWidth + 36), SUM(ResolutionWidth + 37), SUM(ResolutionWidth + 38), SUM(ResolutionWidth + 39), SUM(ResolutionWidth + 40), SUM(ResolutionWidth + 41), SUM(ResolutionWidth + 42), SUM(ResolutionWidth + 43), SUM(ResolutionWidth + 44), SUM(ResolutionWidth + 45), SUM(ResolutionWidth + 46), SUM(ResolutionWidth + 47), SUM(ResolutionWidth + 48), SUM(ResolutionWidth + 49), SUM(ResolutionWidth + 50), SUM(ResolutionWidth + 51), SUM(ResolutionWidth + 52), SUM(ResolutionWidth + 53), SUM(ResolutionWidth + 54), SUM(ResolutionWidth + 55), SUM(ResolutionWidth + 56), SUM(ResolutionWidth + 57), SUM(ResolutionWidth + 58), SUM(ResolutionWidth + 59), SUM(ResolutionWidth + 60), SUM(ResolutionWidth + 61), SUM(ResolutionWidth + 62), SUM(ResolutionWidth + 63), SUM(ResolutionWidth + 64), SUM(ResolutionWidth + 65), SUM(ResolutionWidth + 66), SUM(ResolutionWidth + 67), SUM(ResolutionWidth + 68), SUM(ResolutionWidth + 69), SUM(ResolutionWidth + 70), SUM(ResolutionWidth + 71), SUM(ResolutionWidth + 72), SUM(ResolutionWidth + 73), SUM(ResolutionWidth + 74), SUM(ResolutionWidth + 75), SUM(ResolutionWidth + 76), SUM(ResolutionWidth + 77), SUM(ResolutionWidth + 78), SUM(ResolutionWidth + 79), SUM(ResolutionWidth + 80), SUM(ResolutionWidth + 81), SUM(ResolutionWidth + 82), SUM(ResolutionWidth + 83), SUM(ResolutionWidth + 84), SUM(ResolutionWidth + 85), SUM(ResolutionWidth + 86), SUM(ResolutionWidth + 87), SUM(ResolutionWidth + 88), SUM(ResolutionWidth + 89) FROM hits;
+
+searching for resource clickbench/query31
+adding query: query31 --- SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query32
+adding query: query32 --- SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query33
+adding query: query33 --- SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query34
+adding query: query34 --- SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query35
+adding query: query35 --- SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query36
+adding query: query36 --- SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC LIMIT 10;
+
+searching for resource clickbench/query37
+adding query: query37 --- SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh = 0 AND URL <> '' GROUP BY URL ORDER BY PageViews DESC LIMIT 10;
+
+searching for resource clickbench/query38
+adding query: query38 --- SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh = 0 AND Title <> '' GROUP BY Title ORDER BY PageViews DESC LIMIT 10;
+
+searching for resource clickbench/query39
+adding query: query39 --- SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 AND IsDownload = 0 GROUP BY URL ORDER BY PageViews DESC LIMIT 10 OFFSET 1000;
+
+searching for resource clickbench/query40
+adding query: query40 --- SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 GROUP BY TraficSourceID, SearchEngineID, AdvEngineID, Src, Dst ORDER BY PageViews DESC LIMIT 10 OFFSET 1000;
+
+searching for resource clickbench/query41
+adding query: query41 --- SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND TraficSourceID IN (-1, 6) AND RefererHash = 3594120000172545465 GROUP BY URLHash, EventDate ORDER BY PageViews DESC LIMIT 10 OFFSET 100;
+
+searching for resource clickbench/query42
+adding query: query42 --- SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND DontCountHits = 0 AND URLHash = 2868770270353813622 GROUP BY WindowClientWidth, WindowClientHeight ORDER BY PageViews DESC LIMIT 10 OFFSET 10000;
+
+searching for resource clickbench/query43
+adding query: query43 --- SELECT DATE_TRUNC('minute', EventTime) AS M, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-14' AND EventDate <= '2013-07-15' AND IsRefresh = 0 AND DontCountHits = 0 GROUP BY DATE_TRUNC('minute', EventTime) ORDER BY DATE_TRUNC('minute', EventTime) LIMIT 10 OFFSET 1000;
+
+searching for resource clickbench/query44
+searching for resource clickbench/query45
+searching for resource clickbench/query46
+searching for resource clickbench/query47
+searching for resource clickbench/query48
+searching for resource clickbench/query49
+searching for resource clickbench/query50
+searching for resource clickbench/query51
+searching for resource clickbench/query52
+searching for resource clickbench/query53
+searching for resource clickbench/query54
+searching for resource clickbench/query55
+searching for resource clickbench/query56
+searching for resource clickbench/query57
+searching for resource clickbench/query58
+searching for resource clickbench/query59
+searching for resource clickbench/query60
+searching for resource clickbench/query61
+searching for resource clickbench/query62
+searching for resource clickbench/query63
+searching for resource clickbench/query64
+searching for resource clickbench/query65
+searching for resource clickbench/query66
+searching for resource clickbench/query67
+searching for resource clickbench/query68
+searching for resource clickbench/query69
+searching for resource clickbench/query70
+searching for resource clickbench/query71
+searching for resource clickbench/query72
+searching for resource clickbench/query73
+searching for resource clickbench/query74
+searching for resource clickbench/query75
+searching for resource clickbench/query76
+searching for resource clickbench/query77
+searching for resource clickbench/query78
+searching for resource clickbench/query79
+searching for resource clickbench/query80
+searching for resource clickbench/query81
+searching for resource clickbench/query82
+searching for resource clickbench/query83
+searching for resource clickbench/query84
+searching for resource clickbench/query85
+searching for resource clickbench/query86
+searching for resource clickbench/query87
+searching for resource clickbench/query88
+searching for resource clickbench/query89
+searching for resource clickbench/query90
+searching for resource clickbench/query91
+searching for resource clickbench/query92
+searching for resource clickbench/query93
+searching for resource clickbench/query94
+searching for resource clickbench/query95
+searching for resource clickbench/query96
+searching for resource clickbench/query97
+searching for resource clickbench/query98
+searching for resource clickbench/query99
+Adding query as option: query01
+Adding query as option: query02
+Adding query as option: query03
+Adding query as option: query04
+Adding query as option: query05
+Adding query as option: query06
+Adding query as option: query07
+Adding query as option: query08
+Adding query as option: query09
+Adding query as option: query10
+Adding query as option: query11
+Adding query as option: query12
+Adding query as option: query13
+Adding query as option: query14
+Adding query as option: query15
+Adding query as option: query16
+Adding query as option: query17
+Adding query as option: query18
+Adding query as option: query19
+Adding query as option: query20
+Adding query as option: query21
+Adding query as option: query22
+Adding query as option: query23
+Adding query as option: query24
+Adding query as option: query25
+Adding query as option: query26
+Adding query as option: query27
+Adding query as option: query28
+Adding query as option: query29
+Adding query as option: query30
+Adding query as option: query31
+Adding query as option: query32
+Adding query as option: query33
+Adding query as option: query34
+Adding query as option: query35
+Adding query as option: query36
+Adding query as option: query37
+Adding query as option: query38
+Adding query as option: query39
+Adding query as option: query40
+Adding query as option: query41
+Adding query as option: query42
+Adding query as option: query43
+Starting test.
+Maximum execution time specified as: 3600 secs
+2026-05-13 07:48:42:847 0 sec: 0 operations; est completion in 0 second 
+[Thread-3] INFO com.clickhouse.client.api.Client - Using server timezone: UTC
+[Thread-3] INFO com.clickhouse.client.api.Client - Connection reuse strategy: FIFO
+[Thread-3] INFO com.clickhouse.client.api.Client - client compression: false, server compression: true, http compression: false
+[Thread-3] INFO com.clickhouse.client.api.Client - Using new http client implementation
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sssolddatesk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sssoldtimesk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssitemsk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sscustomersk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sscdemosk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sshdemosk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssaddrsk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssstoresk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sspromosk
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssticketnumber
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssquantity
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sswholesalecost
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sslistprice
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sssalesprice
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssextdiscountamt
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssextsalesprice
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssextwholesalecost
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssextlistprice
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssexttax
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: sscouponamt
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssnetpaid
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssnetpaidinctax
+[Thread-3] WARN com.clickhouse.client.api.Client - No setter method found for column: ssnetprofit
+using timeout: 600
+using connection pool with 100 max connections
+using debug: false
+using client settings: {server_time_zone=UTC, client_retry_on_failures=NoHttpResponse,ConnectTimeout,ConnectionRequestTimeout, connect_timeout=30000, http_use_basic_auth=true, socket_rcvbuf=804800, client_allow_binary_reader_to_reuse_buffers=false, ssl=true, socket_sndbuf=804800, password=bx1Pb_r7_Hucm, database=benchantdb, max_threads_per_client=0, decompress=false, retry=0, socket_timeout=602000, use_server_time_zone=true, compress=true, client_network_buffer_size=300000, max_execution_time=600000, async=false, connection_ttl=-1, connection_reuse_strategy=FIFO, connection_pool_enabled=true, user=default, max_open_connections=100, connection_request_timeout=10000, compression.lz4.uncompressed_buffer_size=8192}
+using batch size: 1
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+2026-05-13 07:48:52:837 10 sec: 13 operations; 1.3 current ops/sec; est completion in 24 seconds [QUERY-query03: Count=1, Max=225279, Min=225152, Avg=225216, 90=225279, 99=225279, 99.9=225279, 99.99=225279] [QUERY-query04: Count=1, Max=515327, Min=515072, Avg=515200, 90=515327, 99=515327, 99.9=515327, 99.99=515327] [QUERY-query01: Count=1, Max=182783, Min=182656, Avg=182720, 90=182783, 99=182783, 99.9=182783, 99.99=182783] [QUERY-query12: Count=1, Max=657407, Min=656896, Avg=657152, 90=657407, 99=657407, 99.9=657407, 99.99=657407] [QUERY-query02: Count=1, Max=148095, Min=147968, Avg=148032, 90=148095, 99=148095, 99.9=148095, 99.99=148095] [QUERY-query13: Count=1, Max=1276927, Min=1275904, Avg=1276416, 90=1276927, 99=1276927, 99.9=1276927, 99.99=1276927] [QUERY-query10: Count=1, Max=1201151, Min=1200128, Avg=1200640, 90=1201151, 99=1201151, 99.9=1201151, 99.99=1201151] [QUERY-query11: Count=1, Max=551935, Min=551424, Avg=551680, 90=551935, 99=551935, 99.9=551935, 99.99=551935] [QUERY-query09: Count=1, Max=1214463, Min=1213440, Avg=1213952, 90=1214463, 99=1214463, 99.9=1214463, 99.99=1214463] [QUERY-query07: Count=1, Max=178559, Min=178432, Avg=178496, 90=178559, 99=178559, 99.9=178559, 99.99=178559] [QUERY-query08: Count=1, Max=34047, Min=34016, Avg=34032, 90=34047, 99=34047, 99.9=34047, 99.99=34047] [QUERY-query05: Count=1, Max=798719, Min=798208, Avg=798464, 90=798719, 99=798719, 99.9=798719, 99.99=798719] [QUERY-query06: Count=1, Max=1588223, Min=1587200, Avg=1587712, 90=1588223, 99=1588223, 99.9=1588223, 99.99=1588223] 
+2026-05-13 07:49:02:837 20 sec: 18 operations; 0.5 current ops/sec; est completion in 28 seconds [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query14: Count=1, Max=1937407, Min=1936384, Avg=1936896, 90=1937407, 99=1937407, 99.9=1937407, 99.99=1937407] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=1, Max=1816575, Min=1815552, Avg=1816064, 90=1816575, 99=1816575, 99.9=1816575, 99.99=1816575] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=1, Max=2310143, Min=2308096, Avg=2309120, 90=2310143, 99=2310143, 99.9=2310143, 99.99=2310143] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=1, Max=821759, Min=821248, Avg=821504, 90=821759, 99=821759, 99.9=821759, 99.99=821759] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=1, Max=3291135, Min=3289088, Avg=3290112, 90=3291135, 99=3291135, 99.9=3291135, 99.99=3291135] 
+2026-05-13 07:49:12:837 30 sec: 20 operations; 0.2 current ops/sec; est completion in 35 seconds [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=1, Max=189823, Min=189696, Avg=189760, 90=189823, 99=189823, 99.9=189823, 99.99=189823] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=1, Max=8126463, Min=8122368, Avg=8124416, 90=8126463, 99=8126463, 99.9=8126463, 99.99=8126463] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-13 07:49:22:837 40 sec: 22 operations; 0.2 current ops/sec; est completion in 39 seconds [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=1, Max=8151039, Min=8146944, Avg=8148992, 90=8151039, 99=8151039, 99.9=8151039, 99.99=8151039] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=1, Max=2586623, Min=2584576, Avg=2585600, 90=2586623, 99=2586623, 99.9=2586623, 99.99=2586623] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-13 07:49:32:837 50 sec: 26 operations; 0.4 current ops/sec; est completion in 33 seconds [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query25: Count=1, Max=758271, Min=757760, Avg=758016, 90=758271, 99=758271, 99.9=758271, 99.99=758271] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query26: Count=1, Max=499967, Min=499712, Avg=499840, 90=499967, 99=499967, 99.9=499967, 99.99=499967] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query23: Count=1, Max=7655423, Min=7651328, Avg=7653376, 90=7655423, 99=7655423, 99.9=7655423, 99.99=7655423] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=1, Max=2361343, Min=2359296, Avg=2360320, 90=2361343, 99=2361343, 99.9=2361343, 99.99=2361343] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-13 07:49:42:837 60 sec: 28 operations; 0.2 current ops/sec; est completion in 33 seconds [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query25: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query26: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query27: Count=1, Max=741887, Min=741376, Avg=741632, 90=741887, 99=741887, 99.9=741887, 99.99=741887] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query28: Count=1, Max=676351, Min=675840, Avg=676096, 90=676351, 99=676351, 99.9=676351, 99.99=676351] 
+2026-05-13 07:49:52:837 70 sec: 28 operations; 0 current ops/sec; est completion in 38 seconds [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query25: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query26: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query27: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query28: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-13 07:50:02:837 80 sec: 32 operations; 0.4 current ops/sec; est completion in 28 seconds [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query32: Count=1, Max=2762751, Min=2760704, Avg=2761728, 90=2762751, 99=2762751, 99.9=2762751, 99.99=2762751] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query30: Count=1, Max=92095, Min=92032, Avg=92064, 90=92095, 99=92095, 99.9=92095, 99.99=92095] [QUERY-query31: Count=1, Max=1160191, Min=1159168, Avg=1159680, 90=1160191, 99=1160191, 99.9=1160191, 99.99=1160191] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query25: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query26: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query29: Count=1, Max=19546111, Min=19529728, Avg=19537920, 90=19546111, 99=19546111, 99.9=19546111, 99.99=19546111] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query27: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query28: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-13 07:50:12:837 90 sec: 33 operations; 0.1 current ops/sec; est completion in 28 seconds [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query32: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query33: Count=1, Max=11927551, Min=11919360, Avg=11923456, 90=11927551, 99=11927551, 99.9=11927551, 99.99=11927551] [QUERY-query30: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query31: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query25: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query26: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query29: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query27: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query28: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-13 07:50:22:837 100 sec: 34 operations; 0.1 current ops/sec; est completion in 27 seconds [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query34: Count=1, Max=6590463, Min=6586368, Avg=6588416, 90=6590463, 99=6590463, 99.9=6590463, 99.99=6590463] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query32: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query33: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query30: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query31: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query25: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query26: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query29: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query27: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query28: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+Could not wait until max specified time, TerminatorThread interrupted.
+2026-05-13 07:50:27:792 104 sec: 43 operations; 1.82 current ops/sec; [QUERY-query14: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query36: Count=1, Max=990719, Min=990208, Avg=990464, 90=990719, 99=990719, 99.9=990719, 99.99=990719] [QUERY-query15: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query37: Count=1, Max=83327, Min=83264, Avg=83296, 90=83327, 99=83327, 99.9=83327, 99.99=83327] [QUERY-query12: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query34: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query13: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query35: Count=1, Max=10690559, Min=10682368, Avg=10686464, 90=10690559, 99=10690559, 99.9=10690559, 99.99=10690559] [QUERY-query10: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query32: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query11: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query33: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query30: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query31: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query38: Count=1, Max=43103, Min=43072, Avg=43088, 90=43103, 99=43103, 99.9=43103, 99.99=43103] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query39: Count=1, Max=41055, Min=41024, Avg=41040, 90=41055, 99=41055, 99.9=41055, 99.99=41055] [CLEANUP: Count=1, Max=1, Min=1, Avg=1, 90=1, 99=1, 99.9=1, 99.99=1] [QUERY-query40: Count=1, Max=123775, Min=123712, Avg=123744, 90=123775, 99=123775, 99.9=123775, 99.99=123775] [QUERY-query03: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query25: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query04: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query26: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query01: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query02: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query43: Count=1, Max=20175, Min=20160, Avg=20168, 90=20175, 99=20175, 99.9=20175, 99.99=20175] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query41: Count=1, Max=152319, Min=152192, Avg=152256, 90=152319, 99=152319, 99.9=152319, 99.99=152319] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query42: Count=1, Max=23359, Min=23344, Avg=23352, 90=23359, 99=23359, 99.9=23359, 99.99=23359] [QUERY-query09: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query07: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query29: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query08: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query05: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query27: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query06: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query28: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+[OVERALL], RunTime(ms), 104955
+[OVERALL], Throughput(ops/sec), 0.4096993949788004
+[TOTAL_GCS_PS_Scavenge], Count, 0
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 0.0
+[TOTAL_GCS_PS_MarkSweep], Count, 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GCs], Count, 0
+[TOTAL_GC_TIME], Time(ms), 0
+[TOTAL_GC_TIME_%], Time(%), 0.0
+[QUERY-query14], Operations, 1
+[QUERY-query14], AverageLatency(us), 1936896.0
+[QUERY-query14], MinLatency(us), 1936384
+[QUERY-query14], MaxLatency(us), 1937407
+[QUERY-query14], 95thPercentileLatency(us), 1937407
+[QUERY-query14], 99thPercentileLatency(us), 1937407
+[QUERY-query14], Return=OK, 1
+[QUERY-query36], Operations, 1
+[QUERY-query36], AverageLatency(us), 990464.0
+[QUERY-query36], MinLatency(us), 990208
+[QUERY-query36], MaxLatency(us), 990719
+[QUERY-query36], 95thPercentileLatency(us), 990719
+[QUERY-query36], 99thPercentileLatency(us), 990719
+[QUERY-query36], Return=OK, 1
+[QUERY-query15], Operations, 1
+[QUERY-query15], AverageLatency(us), 1816064.0
+[QUERY-query15], MinLatency(us), 1815552
+[QUERY-query15], MaxLatency(us), 1816575
+[QUERY-query15], 95thPercentileLatency(us), 1816575
+[QUERY-query15], 99thPercentileLatency(us), 1816575
+[QUERY-query15], Return=OK, 1
+[QUERY-query37], Operations, 1
+[QUERY-query37], AverageLatency(us), 83296.0
+[QUERY-query37], MinLatency(us), 83264
+[QUERY-query37], MaxLatency(us), 83327
+[QUERY-query37], 95thPercentileLatency(us), 83327
+[QUERY-query37], 99thPercentileLatency(us), 83327
+[QUERY-query37], Return=OK, 1
+[QUERY-query12], Operations, 1
+[QUERY-query12], AverageLatency(us), 657152.0
+[QUERY-query12], MinLatency(us), 656896
+[QUERY-query12], MaxLatency(us), 657407
+[QUERY-query12], 95thPercentileLatency(us), 657407
+[QUERY-query12], 99thPercentileLatency(us), 657407
+[QUERY-query12], Return=OK, 1
+[QUERY-query34], Operations, 1
+[QUERY-query34], AverageLatency(us), 6588416.0
+[QUERY-query34], MinLatency(us), 6586368
+[QUERY-query34], MaxLatency(us), 6590463
+[QUERY-query34], 95thPercentileLatency(us), 6590463
+[QUERY-query34], 99thPercentileLatency(us), 6590463
+[QUERY-query34], Return=OK, 1
+[QUERY-query13], Operations, 1
+[QUERY-query13], AverageLatency(us), 1276416.0
+[QUERY-query13], MinLatency(us), 1275904
+[QUERY-query13], MaxLatency(us), 1276927
+[QUERY-query13], 95thPercentileLatency(us), 1276927
+[QUERY-query13], 99thPercentileLatency(us), 1276927
+[QUERY-query13], Return=OK, 1
+[QUERY-query35], Operations, 1
+[QUERY-query35], AverageLatency(us), 1.0686464E7
+[QUERY-query35], MinLatency(us), 10682368
+[QUERY-query35], MaxLatency(us), 10690559
+[QUERY-query35], 95thPercentileLatency(us), 10690559
+[QUERY-query35], 99thPercentileLatency(us), 10690559
+[QUERY-query35], Return=OK, 1
+[QUERY-query10], Operations, 1
+[QUERY-query10], AverageLatency(us), 1200640.0
+[QUERY-query10], MinLatency(us), 1200128
+[QUERY-query10], MaxLatency(us), 1201151
+[QUERY-query10], 95thPercentileLatency(us), 1201151
+[QUERY-query10], 99thPercentileLatency(us), 1201151
+[QUERY-query10], Return=OK, 1
+[QUERY-query32], Operations, 1
+[QUERY-query32], AverageLatency(us), 2761728.0
+[QUERY-query32], MinLatency(us), 2760704
+[QUERY-query32], MaxLatency(us), 2762751
+[QUERY-query32], 95thPercentileLatency(us), 2762751
+[QUERY-query32], 99thPercentileLatency(us), 2762751
+[QUERY-query32], Return=OK, 1
+[QUERY-query11], Operations, 1
+[QUERY-query11], AverageLatency(us), 551680.0
+[QUERY-query11], MinLatency(us), 551424
+[QUERY-query11], MaxLatency(us), 551935
+[QUERY-query11], 95thPercentileLatency(us), 551935
+[QUERY-query11], 99thPercentileLatency(us), 551935
+[QUERY-query11], Return=OK, 1
+[QUERY-query33], Operations, 1
+[QUERY-query33], AverageLatency(us), 1.1923456E7
+[QUERY-query33], MinLatency(us), 11919360
+[QUERY-query33], MaxLatency(us), 11927551
+[QUERY-query33], 95thPercentileLatency(us), 11927551
+[QUERY-query33], 99thPercentileLatency(us), 11927551
+[QUERY-query33], Return=OK, 1
+[QUERY-query30], Operations, 1
+[QUERY-query30], AverageLatency(us), 92064.0
+[QUERY-query30], MinLatency(us), 92032
+[QUERY-query30], MaxLatency(us), 92095
+[QUERY-query30], 95thPercentileLatency(us), 92095
+[QUERY-query30], 99thPercentileLatency(us), 92095
+[QUERY-query30], Return=OK, 1
+[QUERY-query31], Operations, 1
+[QUERY-query31], AverageLatency(us), 1159680.0
+[QUERY-query31], MinLatency(us), 1159168
+[QUERY-query31], MaxLatency(us), 1160191
+[QUERY-query31], 95thPercentileLatency(us), 1160191
+[QUERY-query31], 99thPercentileLatency(us), 1160191
+[QUERY-query31], Return=OK, 1
+[QUERY-query18], Operations, 1
+[QUERY-query18], AverageLatency(us), 2309120.0
+[QUERY-query18], MinLatency(us), 2308096
+[QUERY-query18], MaxLatency(us), 2310143
+[QUERY-query18], 95thPercentileLatency(us), 2310143
+[QUERY-query18], 99thPercentileLatency(us), 2310143
+[QUERY-query18], Return=OK, 1
+[QUERY-query19], Operations, 1
+[QUERY-query19], AverageLatency(us), 8124416.0
+[QUERY-query19], MinLatency(us), 8122368
+[QUERY-query19], MaxLatency(us), 8126463
+[QUERY-query19], 95thPercentileLatency(us), 8126463
+[QUERY-query19], 99thPercentileLatency(us), 8126463
+[QUERY-query19], Return=OK, 1
+[QUERY-query16], Operations, 1
+[QUERY-query16], AverageLatency(us), 821504.0
+[QUERY-query16], MinLatency(us), 821248
+[QUERY-query16], MaxLatency(us), 821759
+[QUERY-query16], 95thPercentileLatency(us), 821759
+[QUERY-query16], 99thPercentileLatency(us), 821759
+[QUERY-query16], Return=OK, 1
+[QUERY-query38], Operations, 1
+[QUERY-query38], AverageLatency(us), 43088.0
+[QUERY-query38], MinLatency(us), 43072
+[QUERY-query38], MaxLatency(us), 43103
+[QUERY-query38], 95thPercentileLatency(us), 43103
+[QUERY-query38], 99thPercentileLatency(us), 43103
+[QUERY-query38], Return=OK, 1
+[QUERY-query17], Operations, 1
+[QUERY-query17], AverageLatency(us), 3290112.0
+[QUERY-query17], MinLatency(us), 3289088
+[QUERY-query17], MaxLatency(us), 3291135
+[QUERY-query17], 95thPercentileLatency(us), 3291135
+[QUERY-query17], 99thPercentileLatency(us), 3291135
+[QUERY-query17], Return=OK, 1
+[QUERY-query39], Operations, 1
+[QUERY-query39], AverageLatency(us), 41040.0
+[QUERY-query39], MinLatency(us), 41024
+[QUERY-query39], MaxLatency(us), 41055
+[QUERY-query39], 95thPercentileLatency(us), 41055
+[QUERY-query39], 99thPercentileLatency(us), 41055
+[QUERY-query39], Return=OK, 1
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 1.0
+[CLEANUP], MinLatency(us), 1
+[CLEANUP], MaxLatency(us), 1
+[CLEANUP], 95thPercentileLatency(us), 1
+[CLEANUP], 99thPercentileLatency(us), 1
+[QUERY-query40], Operations, 1
+[QUERY-query40], AverageLatency(us), 123744.0
+[QUERY-query40], MinLatency(us), 123712
+[QUERY-query40], MaxLatency(us), 123775
+[QUERY-query40], 95thPercentileLatency(us), 123775
+[QUERY-query40], 99thPercentileLatency(us), 123775
+[QUERY-query40], Return=OK, 1
+[QUERY-query03], Operations, 1
+[QUERY-query03], AverageLatency(us), 225216.0
+[QUERY-query03], MinLatency(us), 225152
+[QUERY-query03], MaxLatency(us), 225279
+[QUERY-query03], 95thPercentileLatency(us), 225279
+[QUERY-query03], 99thPercentileLatency(us), 225279
+[QUERY-query03], Return=OK, 1
+[QUERY-query25], Operations, 1
+[QUERY-query25], AverageLatency(us), 758016.0
+[QUERY-query25], MinLatency(us), 757760
+[QUERY-query25], MaxLatency(us), 758271
+[QUERY-query25], 95thPercentileLatency(us), 758271
+[QUERY-query25], 99thPercentileLatency(us), 758271
+[QUERY-query25], Return=OK, 1
+[QUERY-query04], Operations, 1
+[QUERY-query04], AverageLatency(us), 515200.0
+[QUERY-query04], MinLatency(us), 515072
+[QUERY-query04], MaxLatency(us), 515327
+[QUERY-query04], 95thPercentileLatency(us), 515327
+[QUERY-query04], 99thPercentileLatency(us), 515327
+[QUERY-query04], Return=OK, 1
+[QUERY-query26], Operations, 1
+[QUERY-query26], AverageLatency(us), 499840.0
+[QUERY-query26], MinLatency(us), 499712
+[QUERY-query26], MaxLatency(us), 499967
+[QUERY-query26], 95thPercentileLatency(us), 499967
+[QUERY-query26], 99thPercentileLatency(us), 499967
+[QUERY-query26], Return=OK, 1
+[QUERY-query01], Operations, 1
+[QUERY-query01], AverageLatency(us), 182720.0
+[QUERY-query01], MinLatency(us), 182656
+[QUERY-query01], MaxLatency(us), 182783
+[QUERY-query01], 95thPercentileLatency(us), 182783
+[QUERY-query01], 99thPercentileLatency(us), 182783
+[QUERY-query01], Return=OK, 1
+[QUERY-query23], Operations, 1
+[QUERY-query23], AverageLatency(us), 7653376.0
+[QUERY-query23], MinLatency(us), 7651328
+[QUERY-query23], MaxLatency(us), 7655423
+[QUERY-query23], 95thPercentileLatency(us), 7655423
+[QUERY-query23], 99thPercentileLatency(us), 7655423
+[QUERY-query23], Return=OK, 1
+[QUERY-query02], Operations, 1
+[QUERY-query02], AverageLatency(us), 148032.0
+[QUERY-query02], MinLatency(us), 147968
+[QUERY-query02], MaxLatency(us), 148095
+[QUERY-query02], 95thPercentileLatency(us), 148095
+[QUERY-query02], 99thPercentileLatency(us), 148095
+[QUERY-query02], Return=OK, 1
+[QUERY-query24], Operations, 1
+[QUERY-query24], AverageLatency(us), 2360320.0
+[QUERY-query24], MinLatency(us), 2359296
+[QUERY-query24], MaxLatency(us), 2361343
+[QUERY-query24], 95thPercentileLatency(us), 2361343
+[QUERY-query24], 99thPercentileLatency(us), 2361343
+[QUERY-query24], Return=OK, 1
+[QUERY-query21], Operations, 1
+[QUERY-query21], AverageLatency(us), 8148992.0
+[QUERY-query21], MinLatency(us), 8146944
+[QUERY-query21], MaxLatency(us), 8151039
+[QUERY-query21], 95thPercentileLatency(us), 8151039
+[QUERY-query21], 99thPercentileLatency(us), 8151039
+[QUERY-query21], Return=OK, 1
+[QUERY-query43], Operations, 1
+[QUERY-query43], AverageLatency(us), 20168.0
+[QUERY-query43], MinLatency(us), 20160
+[QUERY-query43], MaxLatency(us), 20175
+[QUERY-query43], 95thPercentileLatency(us), 20175
+[QUERY-query43], 99thPercentileLatency(us), 20175
+[QUERY-query43], Return=OK, 1
+[QUERY-query22], Operations, 1
+[QUERY-query22], AverageLatency(us), 2585600.0
+[QUERY-query22], MinLatency(us), 2584576
+[QUERY-query22], MaxLatency(us), 2586623
+[QUERY-query22], 95thPercentileLatency(us), 2586623
+[QUERY-query22], 99thPercentileLatency(us), 2586623
+[QUERY-query22], Return=OK, 1
+[QUERY-query41], Operations, 1
+[QUERY-query41], AverageLatency(us), 152256.0
+[QUERY-query41], MinLatency(us), 152192
+[QUERY-query41], MaxLatency(us), 152319
+[QUERY-query41], 95thPercentileLatency(us), 152319
+[QUERY-query41], 99thPercentileLatency(us), 152319
+[QUERY-query41], Return=OK, 1
+[QUERY-query20], Operations, 1
+[QUERY-query20], AverageLatency(us), 189760.0
+[QUERY-query20], MinLatency(us), 189696
+[QUERY-query20], MaxLatency(us), 189823
+[QUERY-query20], 95thPercentileLatency(us), 189823
+[QUERY-query20], 99thPercentileLatency(us), 189823
+[QUERY-query20], Return=OK, 1
+[QUERY-query42], Operations, 1
+[QUERY-query42], AverageLatency(us), 23352.0
+[QUERY-query42], MinLatency(us), 23344
+[QUERY-query42], MaxLatency(us), 23359
+[QUERY-query42], 95thPercentileLatency(us), 23359
+[QUERY-query42], 99thPercentileLatency(us), 23359
+[QUERY-query42], Return=OK, 1
+[QUERY-query09], Operations, 1
+[QUERY-query09], AverageLatency(us), 1213952.0
+[QUERY-query09], MinLatency(us), 1213440
+[QUERY-query09], MaxLatency(us), 1214463
+[QUERY-query09], 95thPercentileLatency(us), 1214463
+[QUERY-query09], 99thPercentileLatency(us), 1214463
+[QUERY-query09], Return=OK, 1
+[QUERY-query07], Operations, 1
+[QUERY-query07], AverageLatency(us), 178496.0
+[QUERY-query07], MinLatency(us), 178432
+[QUERY-query07], MaxLatency(us), 178559
+[QUERY-query07], 95thPercentileLatency(us), 178559
+[QUERY-query07], 99thPercentileLatency(us), 178559
+[QUERY-query07], Return=OK, 1
+[QUERY-query29], Operations, 1
+[QUERY-query29], AverageLatency(us), 1.953792E7
+[QUERY-query29], MinLatency(us), 19529728
+[QUERY-query29], MaxLatency(us), 19546111
+[QUERY-query29], 95thPercentileLatency(us), 19546111
+[QUERY-query29], 99thPercentileLatency(us), 19546111
+[QUERY-query29], Return=OK, 1
+[QUERY-query08], Operations, 1
+[QUERY-query08], AverageLatency(us), 34032.0
+[QUERY-query08], MinLatency(us), 34016
+[QUERY-query08], MaxLatency(us), 34047
+[QUERY-query08], 95thPercentileLatency(us), 34047
+[QUERY-query08], 99thPercentileLatency(us), 34047
+[QUERY-query08], Return=OK, 1
+[QUERY-query05], Operations, 1
+[QUERY-query05], AverageLatency(us), 798464.0
+[QUERY-query05], MinLatency(us), 798208
+[QUERY-query05], MaxLatency(us), 798719
+[QUERY-query05], 95thPercentileLatency(us), 798719
+[QUERY-query05], 99thPercentileLatency(us), 798719
+[QUERY-query05], Return=OK, 1
+[QUERY-query27], Operations, 1
+[QUERY-query27], AverageLatency(us), 741632.0
+[QUERY-query27], MinLatency(us), 741376
+[QUERY-query27], MaxLatency(us), 741887
+[QUERY-query27], 95thPercentileLatency(us), 741887
+[QUERY-query27], 99thPercentileLatency(us), 741887
+[QUERY-query27], Return=OK, 1
+[QUERY-query06], Operations, 1
+[QUERY-query06], AverageLatency(us), 1587712.0
+[QUERY-query06], MinLatency(us), 1587200
+[QUERY-query06], MaxLatency(us), 1588223
+[QUERY-query06], 95thPercentileLatency(us), 1588223
+[QUERY-query06], 99thPercentileLatency(us), 1588223
+[QUERY-query06], Return=OK, 1
+[QUERY-query28], Operations, 1
+[QUERY-query28], AverageLatency(us), 676096.0
+[QUERY-query28], MinLatency(us), 675840
+[QUERY-query28], MaxLatency(us), 676351
+[QUERY-query28], 95thPercentileLatency(us), 676351
+[QUERY-query28], 99thPercentileLatency(us), 676351
+[QUERY-query28], Return=OK, 1

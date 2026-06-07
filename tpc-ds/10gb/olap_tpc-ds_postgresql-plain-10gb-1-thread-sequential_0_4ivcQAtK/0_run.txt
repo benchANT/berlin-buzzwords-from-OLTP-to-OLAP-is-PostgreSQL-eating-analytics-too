@@ -1,0 +1,1191 @@
+bin/ycsb run cratedb  -s -jvm-args=-XX:MaxRAMPercentage=85.0  -p  db.user=benchant -p  db.passwd=Performance99! -p db.url="jdbc:postgresql://172.31.20.50:5432/benchantdb?sslmode=allow" -p db.postgresql.use_duckdb_extension=false -p maxexecutiontime=7200 -p operationcount=1000 -threads 1 -p workload=site.ycsb.workloads.OlapWorkload -p olap.queryset=tpcds -p olap.queries.lower=16 -p olap.queries.upper=25 -p olap.queryselection=n-sequential  -p olap.queryselection.sequential.count=100 -p olap.queries.list=query16,query17,query18,query19,query20,query21,query22,query23,query24,query25 -p tpcds.parameter.csk.upper=500000 -p tpcds.parameter.sdt.upper=2452642 -p tpcds.parameter.sdt.lower=2450816 -p tpcds.parameter.manager.upper=100 -p tpcds.parameter.itm.upper=102000 -p tpcds.parameter.itm.lower=1 -p tpcds.parameter.cities=6 -p tpcds.parameter.counties=3
+/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java -XX:MaxRAMPercentage=85.0 -cp /binary/ycsb/cratedb-binding/conf:/binary/ycsb/conf:/binary/ycsb/lib/jackson-mapper-asl-1.9.4.jar:/binary/ycsb/lib/htrace-core4-4.1.0-incubating.jar:/binary/ycsb/lib/core-0.18.0-SNAPSHOT.jar:/binary/ycsb/lib/jackson-core-asl-1.9.4.jar:/binary/ycsb/lib/HdrHistogram-2.1.4.jar:/binary/ycsb/cratedb-binding/lib/checker-qual-3.42.0.jar:/binary/ycsb/cratedb-binding/lib/cratedb-binding-0.18.0-SNAPSHOT.jar:/binary/ycsb/cratedb-binding/lib/postgresql-42.7.3.jar site.ycsb.Client -db site.ycsb.db.CratedbClient -s -p db.user=benchant -p db.passwd=Performance99! -p db.url=jdbc:postgresql://172.31.20.50:5432/benchantdb?sslmode=allow -p db.postgresql.use_duckdb_extension=false -p maxexecutiontime=7200 -p operationcount=1000 -threads 1 -p workload=site.ycsb.workloads.OlapWorkload -p olap.queryset=tpcds -p olap.queries.lower=16 -p olap.queries.upper=25 -p olap.queryselection=n-sequential -p olap.queryselection.sequential.count=100 -p olap.queries.list=query16,query17,query18,query19,query20,query21,query22,query23,query24,query25 -p tpcds.parameter.csk.upper=500000 -p tpcds.parameter.sdt.upper=2452642 -p tpcds.parameter.sdt.lower=2450816 -p tpcds.parameter.manager.upper=100 -p tpcds.parameter.itm.upper=102000 -p tpcds.parameter.itm.lower=1 -p tpcds.parameter.cities=6 -p tpcds.parameter.counties=3 -t
+Command line: -db site.ycsb.db.CratedbClient -s -p db.user=benchant -p db.passwd=Performance99! -p db.url=jdbc:postgresql://172.31.20.50:5432/benchantdb?sslmode=allow -p db.postgresql.use_duckdb_extension=false -p maxexecutiontime=7200 -p operationcount=1000 -threads 1 -p workload=site.ycsb.workloads.OlapWorkload -p olap.queryset=tpcds -p olap.queries.lower=16 -p olap.queries.upper=25 -p olap.queryselection=n-sequential -p olap.queryselection.sequential.count=100 -p olap.queries.list=query16,query17,query18,query19,query20,query21,query22,query23,query24,query25 -p tpcds.parameter.csk.upper=500000 -p tpcds.parameter.sdt.upper=2452642 -p tpcds.parameter.sdt.lower=2450816 -p tpcds.parameter.manager.upper=100 -p tpcds.parameter.itm.upper=102000 -p tpcds.parameter.itm.lower=1 -p tpcds.parameter.cities=6 -p tpcds.parameter.counties=3 -t
+YCSB Client 0.18.0-SNAPSHOT
+
+Loading workload...
+Initializing TPC-DS Workload
+running 1000 iterations per thread
+searching for resource tpcds/query01
+adding query: query01 --- SELECT *
+ FROM customer_address 
+ WHERE ca_address_sk = (SELECT c_current_addr_sk FROM customer WHERE c_customer_sk = ?) 
+ LIMIT 100;
+
+searching for resource tpcds/query02
+adding query: query02 --- select s_store_id
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,avg(ss_quantity) as store_sales_quantityave
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,stddev_samp(ss_quantity)/avg(ss_quantity) as store_sales_quantitycov
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,avg(ss_wholesale_cost) as store_sales_wscostave
+    ,sum(ss_list_price) as store_sales_lpricesum
+    ,avg(ss_list_price) as store_sales_lpriceave
+    ,sum(ss_ext_tax) as store_sales_taxsum
+    ,max(ss_ext_sales_price) as store_sales_espricemax
+    ,min(ss_ext_list_price) as store_sales_elpricemin 
+from store_sales,
+     store 
+where s_store_sk = ss_store_sk AND 
+     ss_sold_date_sk = ? 
+group by s_store_id 
+LIMIT 100; 
+
+searching for resource tpcds/query03
+adding query: query03 --- select ws_web_page_sk
+     ,count(ws_quantity) as web_sales_quantitycount
+     ,avg(ws_quantity) as web_sales_quantityave
+     ,stddev_samp(ws_quantity) as web_sales_quantitystdev
+     ,stddev_samp(ws_quantity)/avg(ws_quantity) as web_sales_quantitycov
+     ,sum(ws_sales_price) as web_sales_spricesum
+     ,avg(ws_sales_price) as web_sales_spriceave
+     ,avg(ws_wholesale_cost) as web_sales_wscostave
+     ,sum(ws_list_price) as web_sales_lpricesum
+     ,avg(ws_list_price) as web_sales_lpriceave
+     ,sum(ws_ext_tax) as web_sales_taxsum
+     ,max(ws_ext_sales_price) as web_sales_espricemax
+     ,min(ws_ext_list_price) as web_sales_elpricemin 
+from web_sales 
+where ws_sold_date_sk = ? 
+group by ws_web_page_sk 
+LIMIT 100; 
+
+searching for resource tpcds/query04
+adding query: query04 --- select ss_store_sk
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,avg(ss_quantity) as store_sales_quantityave
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,stddev_samp(ss_quantity)/avg(ss_quantity) as store_sales_quantitycov
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,avg(ss_wholesale_cost) as store_sales_wscostave
+    ,sum(ss_list_price) as store_sales_lpricesum
+    ,avg(ss_list_price) as store_sales_lpriceave
+    ,sum(ss_ext_tax) as store_sales_taxsum
+    ,max(ss_ext_sales_price) as store_sales_espricemax
+    ,min(ss_ext_list_price) as store_sales_elpricemin 
+from store_sales 
+where ss_sold_date_sk = ? 
+group by ss_store_sk 
+LIMIT 100;
+
+searching for resource tpcds/query05
+adding query: query05 --- select ss_item_sk
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,avg(ss_quantity) as store_sales_quantityave
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,stddev_samp(ss_quantity)/avg(ss_quantity) as store_sales_quantitycov
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,avg(ss_wholesale_cost) as store_sales_wscostave
+    ,sum(ss_list_price) as store_sales_lpricesum
+    ,avg(ss_list_price) as store_sales_lpriceave
+    ,sum(ss_ext_tax) as store_sales_taxsum
+    ,max(ss_ext_sales_price) as store_sales_espricemax
+    ,min(ss_ext_list_price) as store_sales_elpricemin 
+from store_sales 
+where ss_sold_date_sk = ? 
+group by ss_item_sk 
+LIMIT 100; 
+
+searching for resource tpcds/query06
+adding query: query06 --- WITH metrics AS (
+    SELECT ss_store_sk
+        ,count(ss_quantity) as store_sales_quantitycount
+        ,avg(ss_quantity) as store_sales_quantityave
+        ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+        ,stddev_samp(ss_quantity)/avg(ss_quantity) as store_sales_quantitycov
+        ,sum(ss_sales_price) as store_sales_spricesum
+        ,avg(ss_sales_price) as store_sales_spriceave
+        ,avg(ss_wholesale_cost) as store_sales_wscostave
+        ,sum(ss_list_price) as store_sales_lpricesum
+        ,avg(ss_list_price) as store_sales_lpriceave
+        ,sum(ss_ext_tax) as store_sales_taxsum
+        ,max(ss_ext_sales_price) as store_sales_espricemax
+        ,min(ss_ext_list_price) as store_sales_elpricemin
+    FROM store_sales
+    WHERE ss_sold_date_sk = ?
+    GROUP BY 1 
+) 
+SELECT s_store_name, 
+       metrics.* 
+FROM metrics 
+JOIN store ON s_store_sk = ss_store_sk 
+LIMIT 100; 
+
+searching for resource tpcds/query07
+adding query: query07 --- select ss_item_sk
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,sum(ss_list_price) as store_sales_lpricesum
+    ,max(ss_ext_sales_price) as store_sales_espricemax 
+from store_sales 
+where ss_sold_date_sk = ? 
+group by ss_item_sk 
+LIMIT 100; 
+
+searching for resource tpcds/query08
+adding query: query08 --- SELECT
+    ss_store_sk,
+    ss_sold_date_sk,
+    ss_sales_price,
+    AVG(ss_sales_price) OVER (PARTITION BY ss_store_sk ORDER BY ss_sold_date_sk ROWS BETWEEN 3 PRECEDING AND 3 FOLLOWING) AS moving_avg_sales 
+FROM store_sales 
+where ss_sold_date_sk = ? 
+LIMIT 100; 
+
+searching for resource tpcds/query09
+adding query: query09 --- WITH dates AS (
+  SELECT dt.d_year,
+         dt.d_date_sk
+  FROM date_dim dt
+  WHERE dt.d_moy = ?
+    AND dt.d_year = ?
+) 
+SELECT d.d_year, 
+    item.i_brand_id AS brand_id,
+    SUM(ss_ext_sales_price) AS ext_price 
+FROM store_sales 
+JOIN item ON store_sales.ss_item_sk = item.i_item_sk 
+JOIN dates d ON d.d_date_sk = store_sales.ss_sold_date_sk 
+WHERE item.i_manager_id = 1 
+  AND store_sales.ss_sold_date_sk IN (SELECT d_date_sk FROM dates) 
+GROUP BY d.d_year, item.i_brand_id 
+ORDER BY d.d_year, ext_price DESC 
+LIMIT 100; 
+
+searching for resource tpcds/query10
+adding query: query10 --- WITH metrics AS (
+  select cs_item_sk,
+        inv_warehouse_sk,
+        d1.d_week_seq,
+        sum(case when p_promo_sk is null then 1 else 0 end) no_promo,
+        sum(case when p_promo_sk is not null then 1 else 0 end) promo,
+        count(*) total_cnt
+  from catalog_sales
+  join inventory on cs_item_sk = inv_item_sk
+  join date_dim d1 on (cs_sold_date_sk = d1.d_date_sk)
+  join date_dim d2 on (inv_date_sk = d2.d_date_sk and d1.d_week_seq = d2.d_week_seq)
+  join date_dim d3 on (cs_ship_date_sk = d3.d_date_sk)
+  left join promotion on (cs_promo_sk = p_promo_sk)
+  where inv_quantity_on_hand < cs_quantity
+    and d3.d_date > d1.d_date + INTERVAL '5 days'
+    and d1.d_year = ?
+    and cs_bill_cdemo_sk in (select cd_demo_sk from customer_demographics where cd_marital_status = ?)
+    and cs_bill_cdemo_sk in (select hd_demo_sk from household_demographics where hd_buy_potential = ?)
+    and cs_sold_date_sk in (select d_date_sk from date_dim where d_year = ?)
+  -- group by ALL 
+  group by catalog_sales.cs_item_sk, inventory.inv_warehouse_sk, d1.d_week_seq 
+  limit 100 
+) 
+SELECT i_item_desc,
+       w_warehouse_name,
+       d_week_seq,
+       no_promo,
+       promo,
+       total_cnt 
+FROM metrics 
+JOIN item ON i_item_sk = cs_item_sk 
+JOIN warehouse ON w_warehouse_sk = inv_warehouse_sk 
+ORDER BY total_cnt DESC, i_item_desc, w_warehouse_name, d_week_seq; 
+
+searching for resource tpcds/query11
+adding query: query11 --- select ss_sold_date_sk
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,avg(ss_quantity) as store_sales_quantityave
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,stddev_samp(ss_quantity)/avg(ss_quantity) as store_sales_quantitycov
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,avg(ss_wholesale_cost) as store_sales_wscostave
+    ,sum(ss_list_price) as store_sales_lpricesum
+    ,avg(ss_list_price) as store_sales_lpriceave
+    ,sum(ss_ext_tax) as store_sales_taxsum
+    ,max(ss_ext_sales_price) as store_sales_espricemax
+    ,min(ss_ext_list_price) as store_sales_elpricemin 
+from store_sales 
+where ss_item_sk = ? 
+group by ss_sold_date_sk 
+LIMIT 100; 
+
+searching for resource tpcds/query12
+adding query: query12 --- select ss_item_sk
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,avg(ss_quantity) as store_sales_quantityave
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,avg(ss_wholesale_cost) as store_sales_wscostave
+    ,max(ss_ext_sales_price) as store_sales_espricemax
+    ,min(ss_ext_list_price) as store_sales_elpricemin 
+from store_sales 
+where ss_sold_time_sk between ? AND ? 
+    and ss_sold_date_sk = ? 
+group by ss_item_sk 
+order by store_sales_quantitycount desc 
+LIMIT 100;
+
+searching for resource tpcds/query13
+adding query: query13 --- select ss_sold_time_sk/60 as ss_sold_min
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,avg(ss_quantity) as store_sales_quantityave
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,avg(ss_wholesale_cost) as store_sales_wscostave
+    ,max(ss_ext_sales_price) as store_sales_espricemax
+    ,min(ss_ext_list_price) as store_sales_elpricemin 
+from store_sales 
+where ss_item_sk = ? 
+    and ss_sold_time_sk between ? AND ? 
+    and ss_sold_date_sk = ? 
+group by ss_sold_min 
+LIMIT 100; 
+
+searching for resource tpcds/query14
+adding query: query14 --- select ss_item_sk
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,avg(ss_quantity) as store_sales_quantityave
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,avg(ss_wholesale_cost) as store_sales_wscostave
+    ,max(ss_ext_sales_price) as store_sales_espricemax
+    ,min(ss_ext_list_price) as store_sales_elpricemin 
+from store_sales 
+where ss_sold_time_sk between ? AND ? 
+      and ss_sold_date_sk = ? 
+group by ss_item_sk 
+order by store_sales_quantitycount desc 
+LIMIT 100;
+
+searching for resource tpcds/query15
+adding query: query15 --- select ss_store_sk
+    ,count(ss_quantity) as store_sales_quantitycount
+    ,avg(ss_quantity) as store_sales_quantityave
+    ,stddev_samp(ss_quantity) as store_sales_quantitystdev
+    ,sum(ss_sales_price) as store_sales_spricesum
+    ,avg(ss_sales_price) as store_sales_spriceave
+    ,avg(ss_wholesale_cost) as store_sales_wscostave
+    ,max(ss_ext_sales_price) as store_sales_espricemax
+    ,min(ss_ext_list_price) as store_sales_elpricemin 
+from store_sales 
+where ss_sold_time_sk between ? AND ? 
+      and ss_sold_date_sk = ? 
+group by ss_store_sk 
+LIMIT 100;
+
+searching for resource tpcds/query16
+adding query: query16 --- --
+-- Legal Notice 
+-- 
+-- This document and associated source code (the "Work") is a part of a 
+-- benchmark specification maintained by the TPC. 
+-- 
+-- The TPC reserves all right, title, and interest to the Work as provided 
+-- under U.S. and international laws, including without limitation all patent 
+-- and trademark rights therein. 
+-- 
+-- No Warranty 
+-- 
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION 
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE 
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER 
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, 
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES, 
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR 
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF 
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE. 
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, 
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT 
+--     WITH REGARD TO THE WORK. 
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO 
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE 
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS 
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT, 
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT 
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD 
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 
+
+--   TPC-DS Query03
+
+ select dt.d_year 
+       ,item.i_brand_id brand_id 
+       ,item.i_brand brand
+       ,sum( AGGC ) sum_agg
+ from  date_dim dt 
+      ,store_sales
+      ,item
+ where dt.d_date_sk = store_sales.ss_sold_date_sk
+   and store_sales.ss_item_sk = item.i_item_sk
+   and item.i_manufact_id = ? 
+   and dt.d_moy= ? 
+ group by dt.d_year
+      ,item.i_brand
+      ,item.i_brand_id
+ order by dt.d_year
+         ,sum_agg desc
+         ,brand_id
+ LIMIT 100;
+
+searching for resource tpcds/query17
+adding query: query17 --- --
+-- Legal Notice 
+-- 
+-- This document and associated source code (the "Work") is a part of a 
+-- benchmark specification maintained by the TPC. 
+-- 
+-- The TPC reserves all right, title, and interest to the Work as provided 
+-- under U.S. and international laws, including without limitation all patent 
+-- and trademark rights therein. 
+-- 
+-- No Warranty 
+-- 
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION 
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE 
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER 
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, 
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES, 
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR 
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF 
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE. 
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, 
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT 
+--     WITH REGARD TO THE WORK. 
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO 
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE 
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS 
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT, 
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT 
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD 
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 
+-- 
+--    TPC-DS Query 07
+  
+ select i_item_id, 
+        avg(ss_quantity) agg1,
+        avg(ss_list_price) agg2,
+        avg(ss_coupon_amt) agg3,
+        avg(ss_sales_price) agg4 
+ from store_sales, customer_demographics, date_dim, item, promotion
+ where ss_sold_date_sk = d_date_sk and
+       ss_item_sk = i_item_sk and
+       ss_cdemo_sk = cd_demo_sk and
+       ss_promo_sk = p_promo_sk and
+       cd_gender = ? and 
+       cd_marital_status = ? and
+       cd_education_status = ? and
+       (p_channel_email = 'N' or p_channel_event = 'N') and
+       d_year = ? 
+ group by i_item_id
+ order by i_item_id
+ LIMIT 100;
+
+searching for resource tpcds/query18
+adding query: query18 --- --
+-- Legal Notice
+--
+-- This document and associated source code (the "Work") is a part of a
+-- benchmark specification maintained by the TPC.
+--
+-- The TPC reserves all right, title, and interest to the Work as provided
+-- under U.S. and international laws, including without limitation all patent
+-- and trademark rights therein.
+--
+-- No Warranty
+--
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY,
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES,
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE.
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT,
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT
+--     WITH REGARD TO THE WORK.
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT,
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES.
+--
+-- Contributors:
+--
+--- create i_manager_id;
+--- set types = (int, int, int);
+--- set weights = 4;
+--- add (1, 1,              33:     60, 1, 0, 0);
+--- add (2, 34,     66:     30, 0, 1, 0);
+--- add (3, 67,     100:10, 0, 0, 1);
+
+-- TPD-DS Query 19
+
+select i_brand_id brand_id, i_brand brand, i_manufact_id, i_manufact,
+        sum(ss_ext_sales_price) ext_price
+ from date_dim, store_sales, item,customer,customer_address,store
+ where d_date_sk = ss_sold_date_sk
+   and ss_item_sk = i_item_sk
+   and i_manager_id= ? 
+   and d_moy= ? 
+   and d_year= ? 
+   and ss_customer_sk = c_customer_sk
+   and c_current_addr_sk = ca_address_sk
+   and substr(ca_zip,1,5) <> substr(s_zip,1,5)
+   and ss_store_sk = s_store_sk
+ group by i_brand
+      ,i_brand_id
+      ,i_manufact_id
+      ,i_manufact
+ order by ext_price desc
+         ,i_brand
+         ,i_brand_id
+         ,i_manufact_id
+         ,i_manufact
+LIMIT 100 ;
+
+searching for resource tpcds/query19
+adding query: query19 --- --
+-- Legal Notice 
+-- 
+-- This document and associated source code (the "Work") is a part of a 
+-- benchmark specification maintained by the TPC. 
+-- 
+-- The TPC reserves all right, title, and interest to the Work as provided 
+-- under U.S. and international laws, including without limitation all patent 
+-- and trademark rights therein. 
+-- 
+-- No Warranty 
+-- 
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION 
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE 
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER 
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, 
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES, 
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR 
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF 
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE. 
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, 
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT 
+--     WITH REGARD TO THE WORK. 
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO 
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE 
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS 
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT, 
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT 
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD 
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 
+-- 
+-- Contributors:
+-- 
+-- TPC-DS Query 42
+-- define MONTH = random(11,12,uniform);
+-- define YEAR = random(1998,2002,uniform);
+  
+select dt.d_year
+ 	,item.i_category_id
+ 	,item.i_category
+ 	,sum(ss_ext_sales_price)
+ from 	date_dim dt
+ 	,store_sales
+ 	,item
+ where dt.d_date_sk = store_sales.ss_sold_date_sk
+ 	and store_sales.ss_item_sk = item.i_item_sk
+ 	and item.i_manager_id = 1  	
+ 	and dt.d_moy= ?
+ 	and dt.d_year= ? 
+ group by 	dt.d_year
+ 		,item.i_category_id
+ 		,item.i_category
+ order by       sum(ss_ext_sales_price) desc,dt.d_year
+ 		,item.i_category_id
+ 		,item.i_category
+LIMIT 100 ;
+
+searching for resource tpcds/query20
+adding query: query20 --- --
+-- Legal Notice 
+-- 
+-- This document and associated source code (the "Work") is a part of a 
+-- benchmark specification maintained by the TPC. 
+-- 
+-- The TPC reserves all right, title, and interest to the Work as provided 
+-- under U.S. and international laws, including without limitation all patent 
+-- and trademark rights therein. 
+-- 
+-- No Warranty 
+-- 
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION 
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE 
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER 
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, 
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES, 
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR 
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF 
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE. 
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, 
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT 
+--     WITH REGARD TO THE WORK. 
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO 
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE 
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS 
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT, 
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT 
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD 
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 
+-- 
+-- Contributors:
+-- 
+-- TPC-DS query52
+
+-- define MONTH= random(11,12,uniform);
+-- define YEAR = random(1998,2002,uniform);
+
+select dt.d_year
+ 	,item.i_brand_id brand_id
+ 	,item.i_brand brand
+ 	,sum(ss_ext_sales_price) ext_price
+ from date_dim dt
+     ,store_sales
+     ,item
+ where dt.d_date_sk = store_sales.ss_sold_date_sk
+    and store_sales.ss_item_sk = item.i_item_sk
+    and item.i_manager_id = 1
+    and dt.d_moy= ? 
+    and dt.d_year= ? 
+ group by dt.d_year
+ 	,item.i_brand
+ 	,item.i_brand_id
+ order by dt.d_year
+ 	,ext_price desc
+ 	,brand_id
+LIMIT 100 ;
+
+searching for resource tpcds/query21
+adding query: query21 --- --
+-- Legal Notice
+--
+-- This document and associated source code (the "Work") is a part of a
+-- benchmark specification maintained by the TPC.
+--
+-- The TPC reserves all right, title, and interest to the Work as provided
+-- under U.S. and international laws, including without limitation all patent
+-- and trademark rights therein.
+--
+-- No Warranty
+--
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY,
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES,
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE.
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT,
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT
+--     WITH REGARD TO THE WORK.
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT,
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES.
+--
+-- Contributors:
+--
+-- define YEAR= random(1998, 2002, uniform);
+-- define MONTH=random(11,12,uniform);
+-- define MANAGER=random(1,100,uniform);
+-- TPC-DS Query 55
+ 
+select i_brand_id brand_id, i_brand brand,
+        sum(ss_ext_sales_price) ext_price
+ from date_dim, store_sales, item
+ where d_date_sk = ss_sold_date_sk
+        and ss_item_sk = i_item_sk
+        and i_manager_id= ? 
+        and d_moy= ? 
+        and d_year= ? 
+ group by i_brand, i_brand_id
+ order by ext_price desc, i_brand_id
+LIMIT 100 ;
+
+searching for resource tpcds/query22
+adding query: query22 --- --
+-- Legal Notice 
+-- 
+-- This document and associated source code (the "Work") is a part of a 
+-- benchmark specification maintained by the TPC. 
+-- 
+-- The TPC reserves all right, title, and interest to the Work as provided 
+-- under U.S. and international laws, including without limitation all patent 
+-- and trademark rights therein. 
+-- 
+-- No Warranty 
+-- 
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION 
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE 
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER 
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, 
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES, 
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR 
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF 
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE. 
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, 
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT 
+--     WITH REGARD TO THE WORK. 
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO 
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE 
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS 
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT, 
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT 
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD 
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 
+-- 
+-- Contributors:
+-- 
+-- TPC-DS Query 26
+
+-- define GEN= dist(gender, 1, 1);
+-- define MS= dist(marital_status, 1, 1);
+-- define ES= dist(education, 1, 1);
+-- define YEAR = random(1998,2002,uniform);
+ 
+ select i_item_id, 
+        avg(cs_quantity) agg1,
+        avg(cs_list_price) agg2,
+        avg(cs_coupon_amt) agg3,
+        avg(cs_sales_price) agg4 
+ from catalog_sales, customer_demographics, date_dim, item, promotion
+ where cs_sold_date_sk = d_date_sk and
+       cs_item_sk = i_item_sk and
+       cs_bill_cdemo_sk = cd_demo_sk and
+       cs_promo_sk = p_promo_sk and
+       cd_gender = ? and 
+       cd_marital_status = ? and
+       cd_education_status = ? and
+       (p_channel_email = 'N' or p_channel_event = 'N') and
+       d_year = ? 
+ group by i_item_id
+ order by i_item_id
+ LIMIT 100;
+
+searching for resource tpcds/query23
+adding query: query23 --- --
+-- Legal Notice 
+-- 
+-- This document and associated source code (the "Work") is a part of a 
+-- benchmark specification maintained by the TPC. 
+-- 
+-- The TPC reserves all right, title, and interest to the Work as provided 
+-- under U.S. and international laws, including without limitation all patent 
+-- and trademark rights therein. 
+-- 
+-- No Warranty 
+-- 
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION 
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE 
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER 
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, 
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES, 
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR 
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF 
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE. 
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, 
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT 
+--     WITH REGARD TO THE WORK. 
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO 
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE 
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS 
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT, 
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT 
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD 
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 
+-- 
+-- Contributors:
+-- 
+-- TPC-DS query68
+--  define VEHCNT=random(-1,4,uniform);
+-- define CITYNUMBER = ulist(random(1, rowcount("active_cities", "store"), uniform), 2);
+-- define CITY_A = distmember(cities, [CITYNUMBER.1], 1);
+-- define CITY_B = distmember(cities, [CITYNUMBER.2], 1);
+ 
+ select c_last_name
+       ,c_first_name
+       ,ca_city
+       ,bought_city
+       ,ss_ticket_number
+       ,extended_price
+       ,extended_tax
+       ,list_price
+ from (select ss_ticket_number
+             ,ss_customer_sk
+             ,ca_city bought_city
+             ,sum(ss_ext_sales_price) extended_price
+             ,sum(ss_ext_list_price) list_price
+             ,sum(ss_ext_tax) extended_tax
+       from store_sales
+           ,date_dim
+           ,store
+           ,household_demographics
+           ,customer_address
+       where store_sales.ss_sold_date_sk = date_dim.d_date_sk
+         and store_sales.ss_store_sk = store.s_store_sk
+        and store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+        and store_sales.ss_addr_sk = customer_address.ca_address_sk
+        and date_dim.d_dom between 1 and 2
+        and (household_demographics.hd_dep_count = ? or
+             household_demographics.hd_vehicle_count= ? )
+        and date_dim.d_year in (? , ? , ? )
+        and store.s_city in (? , ?)
+       group by ss_ticket_number
+               ,ss_customer_sk
+               ,ss_addr_sk,ca_city) dn
+      ,customer
+      ,customer_address current_addr
+ where ss_customer_sk = c_customer_sk
+   and customer.c_current_addr_sk = current_addr.ca_address_sk
+   and current_addr.ca_city <> bought_city
+ order by c_last_name
+         ,ss_ticket_number
+LIMIT 100;
+
+searching for resource tpcds/query24
+adding query: query24 --- --
+-- Legal Notice 
+-- 
+-- This document and associated source code (the "Work") is a part of a 
+-- benchmark specification maintained by the TPC. 
+-- 
+-- The TPC reserves all right, title, and interest to the Work as provided 
+-- under U.S. and international laws, including without limitation all patent 
+-- and trademark rights therein. 
+-- 
+-- No Warranty 
+-- 
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION 
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE 
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER 
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY, 
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES, 
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR 
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF 
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE. 
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT, 
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT 
+--     WITH REGARD TO THE WORK. 
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO 
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE 
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS 
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT, 
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT 
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD 
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES. 
+-- 
+-- Contributors:
+-- 
+-- TPC-DS query 73
+-- define BPONE= text({"1001-5000",1},{">10000",1},{"501-1000",1});
+-- define BPTWO= text({"0-500",1},{"Unknown",1},{"5001-10000",1});
+-- define YEAR= random(1998, 2000, uniform);
+-- define COUNTYNUMBER=ulist(random(1, rowcount("active_counties", "store"), uniform),8);
+-- define COUNTY_A=distmember(fips_county, [COUNTYNUMBER.1], 2);
+-- define COUNTY_B=distmember(fips_county, [COUNTYNUMBER.2], 2);
+-- define COUNTY_C=distmember(fips_county, [COUNTYNUMBER.3], 2);
+-- define COUNTY_D=distmember(fips_county, [COUNTYNUMBER.4], 2);
+ 
+ select c_last_name
+       ,c_first_name
+       ,c_salutation
+       ,c_preferred_cust_flag 
+       ,ss_ticket_number
+       ,cnt from
+   (select ss_ticket_number
+          ,ss_customer_sk
+          ,count(*) cnt
+    from store_sales,date_dim,store,household_demographics
+    where store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    and store_sales.ss_store_sk = store.s_store_sk  
+    and store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    and date_dim.d_dom between 1 and 2 
+    and (household_demographics.hd_buy_potential = ? or
+         household_demographics.hd_buy_potential = ? )
+    and household_demographics.hd_vehicle_count > 0
+    and case when household_demographics.hd_vehicle_count > 0 then 
+             household_demographics.hd_dep_count/ household_demographics.hd_vehicle_count else null end > 1
+    and date_dim.d_year in ( ?, ? , ? )
+    and store.s_county in (? , ? , ? ,? )
+    group by ss_ticket_number,ss_customer_sk) dj,customer
+    where ss_customer_sk = c_customer_sk
+      and cnt between 1 and 5
+    order by cnt desc, c_last_name asc;
+
+
+searching for resource tpcds/query25
+adding query: query25 --- --
+-- Legal Notice
+--
+-- This document and associated source code (the "Work") is a part of a
+-- benchmark specification maintained by the TPC.
+--
+-- The TPC reserves all right, title, and interest to the Work as provided
+-- under U.S. and international laws, including without limitation all patent
+-- and trademark rights therein.
+--
+-- No Warranty
+--
+-- 1.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE INFORMATION
+--     CONTAINED HEREIN IS PROVIDED "AS IS" AND WITH ALL FAULTS, AND THE
+--     AUTHORS AND DEVELOPERS OF THE WORK HEREBY DISCLAIM ALL OTHER
+--     WARRANTIES AND CONDITIONS, EITHER EXPRESS, IMPLIED OR STATUTORY,
+--     INCLUDING, BUT NOT LIMITED TO, ANY (IF ANY) IMPLIED WARRANTIES,
+--     DUTIES OR CONDITIONS OF MERCHANTABILITY, OF FITNESS FOR A PARTICULAR
+--     PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OF
+--     WORKMANLIKE EFFORT, OF LACK OF VIRUSES, AND OF LACK OF NEGLIGENCE.
+--     ALSO, THERE IS NO WARRANTY OR CONDITION OF TITLE, QUIET ENJOYMENT,
+--     QUIET POSSESSION, CORRESPONDENCE TO DESCRIPTION OR NON-INFRINGEMENT
+--     WITH REGARD TO THE WORK.
+-- 1.2 IN NO EVENT WILL ANY AUTHOR OR DEVELOPER OF THE WORK BE LIABLE TO
+--     ANY OTHER PARTY FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO THE
+--     COST OF PROCURING SUBSTITUTE GOODS OR SERVICES, LOST PROFITS, LOSS
+--     OF USE, LOSS OF DATA, OR ANY INCIDENTAL, CONSEQUENTIAL, DIRECT,
+--     INDIRECT, OR SPECIAL DAMAGES WHETHER UNDER CONTRACT, TORT, WARRANTY,
+--     OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS OR ANY OTHER AGREEMENT
+--     RELATING TO THE WORK, WHETHER OR NOT SUCH AUTHOR OR DEVELOPER HAD
+--     ADVANCE NOTICE OF THE POSSIBILITY OF SUCH DAMAGES.
+--
+-- Contributors:
+--
+
+-- define HOUR= text({"20",1},{"15",1},{"16",1},{"8",1});
+-- define DEPCNT=random(0,9,uniform);
+-- TPC-DS Query 96
+
+select count(*)
+from store_sales
+    ,household_demographics
+    ,time_dim, store
+where ss_sold_time_sk = time_dim.t_time_sk
+    and ss_hdemo_sk = household_demographics.hd_demo_sk
+    and ss_store_sk = s_store_sk
+    and time_dim.t_hour = ? 
+    and time_dim.t_minute >= 30
+    and household_demographics.hd_dep_count = ? 
+    and store.s_store_name = 'ese'
+order by count(*)
+LIMIT 100 ;
+
+searching for resource tpcds/query26
+searching for resource tpcds/query27
+searching for resource tpcds/query28
+searching for resource tpcds/query29
+searching for resource tpcds/query30
+searching for resource tpcds/query31
+searching for resource tpcds/query32
+searching for resource tpcds/query33
+searching for resource tpcds/query34
+searching for resource tpcds/query35
+searching for resource tpcds/query36
+searching for resource tpcds/query37
+searching for resource tpcds/query38
+searching for resource tpcds/query39
+searching for resource tpcds/query40
+searching for resource tpcds/query41
+searching for resource tpcds/query42
+searching for resource tpcds/query43
+searching for resource tpcds/query44
+searching for resource tpcds/query45
+searching for resource tpcds/query46
+searching for resource tpcds/query47
+searching for resource tpcds/query48
+searching for resource tpcds/query49
+searching for resource tpcds/query50
+searching for resource tpcds/query51
+searching for resource tpcds/query52
+searching for resource tpcds/query53
+searching for resource tpcds/query54
+searching for resource tpcds/query55
+searching for resource tpcds/query56
+searching for resource tpcds/query57
+searching for resource tpcds/query58
+searching for resource tpcds/query59
+searching for resource tpcds/query60
+searching for resource tpcds/query61
+searching for resource tpcds/query62
+searching for resource tpcds/query63
+searching for resource tpcds/query64
+searching for resource tpcds/query65
+searching for resource tpcds/query66
+searching for resource tpcds/query67
+searching for resource tpcds/query68
+searching for resource tpcds/query69
+searching for resource tpcds/query70
+searching for resource tpcds/query71
+searching for resource tpcds/query72
+searching for resource tpcds/query73
+searching for resource tpcds/query74
+searching for resource tpcds/query75
+searching for resource tpcds/query76
+searching for resource tpcds/query77
+searching for resource tpcds/query78
+searching for resource tpcds/query79
+searching for resource tpcds/query80
+searching for resource tpcds/query81
+searching for resource tpcds/query82
+searching for resource tpcds/query83
+searching for resource tpcds/query84
+searching for resource tpcds/query85
+searching for resource tpcds/query86
+searching for resource tpcds/query87
+searching for resource tpcds/query88
+searching for resource tpcds/query89
+searching for resource tpcds/query90
+searching for resource tpcds/query91
+searching for resource tpcds/query92
+searching for resource tpcds/query93
+searching for resource tpcds/query94
+searching for resource tpcds/query95
+searching for resource tpcds/query96
+searching for resource tpcds/query97
+searching for resource tpcds/query98
+searching for resource tpcds/query99
+Generating ITM generator with [1; 102000]
+Adding query as option: query16
+Adding query as option: query17
+Adding query as option: query18
+Adding query as option: query19
+Adding query as option: query20
+Adding query as option: query21
+Adding query as option: query22
+Adding query as option: query23
+Adding query as option: query24
+Adding query as option: query25
+Starting test.
+Maximum execution time specified as: 7200 secs
+Creating connection to URL: jdbc:postgresql://172.31.20.50:5432/benchantdb?sslmode=allow and properties {ssl=true, user=benchant, password=Performance99!}
+2026-05-28 11:49:19:758 0 sec: 0 operations; est completion in 0 second 
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+2026-05-28 11:49:29:748 10 sec: 100 operations; 10 current ops/sec; est completion in 1 minute [QUERY-query16: Count=100, Max=277247, Min=29872, Avg=78343.36, 90=122367, 99=181631, 99.9=277247, 99.99=277247] 
+2026-05-28 11:49:39:748 20 sec: 102 operations; 0.2 current ops/sec; est completion in 2 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=2, Max=7503871, Min=3526656, Avg=5514752, 90=7503871, 99=7503871, 99.9=7503871, 99.99=7503871] 
+2026-05-28 11:49:49:748 30 sec: 105 operations; 0.3 current ops/sec; est completion in 4 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3559423, Min=3477504, Avg=3520853.33, 90=3559423, 99=3559423, 99.9=3559423, 99.99=3559423] 
+2026-05-28 11:49:59:748 40 sec: 107 operations; 0.2 current ops/sec; est completion in 5 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=2, Max=3567615, Min=3536896, Avg=3552256, 90=3567615, 99=3567615, 99.9=3567615, 99.99=3567615] 
+2026-05-28 11:50:09:748 50 sec: 110 operations; 0.3 current ops/sec; est completion in 6 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3579903, Min=3518464, Avg=3549525.33, 90=3579903, 99=3579903, 99.9=3579903, 99.99=3579903] 
+2026-05-28 11:50:19:748 60 sec: 113 operations; 0.3 current ops/sec; est completion in 7 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3610623, Min=3514368, Avg=3554304, 90=3610623, 99=3610623, 99.9=3610623, 99.99=3610623] 
+2026-05-28 11:50:29:748 70 sec: 116 operations; 0.3 current ops/sec; est completion in 8 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3583999, Min=3477504, Avg=3520170.67, 90=3583999, 99=3583999, 99.9=3583999, 99.99=3583999] 
+2026-05-28 11:50:39:748 80 sec: 119 operations; 0.3 current ops/sec; est completion in 9 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3559423, Min=3518464, Avg=3535872, 90=3559423, 99=3559423, 99.9=3559423, 99.99=3559423] 
+2026-05-28 11:50:49:748 90 sec: 122 operations; 0.3 current ops/sec; est completion in 10 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3526655, Min=3508224, Avg=3518122.67, 90=3526655, 99=3526655, 99.9=3526655, 99.99=3526655] 
+2026-05-28 11:50:59:748 100 sec: 124 operations; 0.2 current ops/sec; est completion in 11 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=2, Max=3575807, Min=3497984, Avg=3536896, 90=3575807, 99=3575807, 99.9=3575807, 99.99=3575807] 
+2026-05-28 11:51:09:748 110 sec: 127 operations; 0.3 current ops/sec; est completion in 12 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3522559, Min=3426304, Avg=3473749.33, 90=3522559, 99=3522559, 99.9=3522559, 99.99=3522559] 
+2026-05-28 11:51:19:748 120 sec: 130 operations; 0.3 current ops/sec; est completion in 13 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3592191, Min=3561472, Avg=3576149.33, 90=3592191, 99=3592191, 99.9=3592191, 99.99=3592191] 
+2026-05-28 11:51:29:748 130 sec: 133 operations; 0.3 current ops/sec; est completion in 14 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3620863, Min=3487744, Avg=3535872, 90=3620863, 99=3620863, 99.9=3620863, 99.99=3620863] 
+2026-05-28 11:51:39:748 140 sec: 136 operations; 0.3 current ops/sec; est completion in 14 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3532799, Min=3481600, Avg=3506517.33, 90=3532799, 99=3532799, 99.9=3532799, 99.99=3532799] 
+2026-05-28 11:51:49:748 150 sec: 139 operations; 0.3 current ops/sec; est completion in 15 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3647487, Min=3524608, Avg=3572053.33, 90=3647487, 99=3647487, 99.9=3647487, 99.99=3647487] 
+2026-05-28 11:51:59:748 160 sec: 141 operations; 0.2 current ops/sec; est completion in 16 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=2, Max=3512319, Min=3497984, Avg=3505152, 90=3512319, 99=3512319, 99.9=3512319, 99.99=3512319] 
+2026-05-28 11:52:09:748 170 sec: 144 operations; 0.3 current ops/sec; est completion in 16 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3586047, Min=3516416, Avg=3546794.67, 90=3586047, 99=3586047, 99.9=3586047, 99.99=3586047] 
+2026-05-28 11:52:19:748 180 sec: 147 operations; 0.3 current ops/sec; est completion in 17 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3891199, Min=3457024, Avg=3677866.67, 90=3891199, 99=3891199, 99.9=3891199, 99.99=3891199] 
+2026-05-28 11:52:29:748 190 sec: 150 operations; 0.3 current ops/sec; est completion in 17 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3551231, Min=3483648, Avg=3509248, 90=3551231, 99=3551231, 99.9=3551231, 99.99=3551231] 
+2026-05-28 11:52:39:748 200 sec: 153 operations; 0.3 current ops/sec; est completion in 18 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3573759, Min=3508224, Avg=3546112, 90=3573759, 99=3573759, 99.9=3573759, 99.99=3573759] 
+2026-05-28 11:52:49:748 210 sec: 155 operations; 0.2 current ops/sec; est completion in 19 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=2, Max=3629055, Min=3532800, Avg=3580928, 90=3629055, 99=3629055, 99.9=3629055, 99.99=3629055] 
+2026-05-28 11:52:59:748 220 sec: 158 operations; 0.3 current ops/sec; est completion in 19 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3837951, Min=3504128, Avg=3649194.67, 90=3837951, 99=3837951, 99.9=3837951, 99.99=3837951] 
+2026-05-28 11:53:09:748 230 sec: 161 operations; 0.3 current ops/sec; est completion in 19 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3586047, Min=3493888, Avg=3526997.33, 90=3586047, 99=3586047, 99.9=3586047, 99.99=3586047] 
+2026-05-28 11:53:19:748 240 sec: 164 operations; 0.3 current ops/sec; est completion in 20 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3858431, Min=3555328, Avg=3668992, 90=3858431, 99=3858431, 99.9=3858431, 99.99=3858431] 
+2026-05-28 11:53:29:748 250 sec: 167 operations; 0.3 current ops/sec; est completion in 20 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3567615, Min=3489792, Avg=3539968, 90=3567615, 99=3567615, 99.9=3567615, 99.99=3567615] 
+2026-05-28 11:53:39:748 260 sec: 169 operations; 0.2 current ops/sec; est completion in 21 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=2, Max=3565567, Min=3557376, Avg=3561472, 90=3565567, 99=3565567, 99.9=3565567, 99.99=3565567] 
+2026-05-28 11:53:49:748 270 sec: 172 operations; 0.3 current ops/sec; est completion in 21 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3936255, Min=3530752, Avg=3671722.67, 90=3936255, 99=3936255, 99.9=3936255, 99.99=3936255] 
+2026-05-28 11:53:59:748 280 sec: 175 operations; 0.3 current ops/sec; est completion in 22 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3592191, Min=3532800, Avg=3561813.33, 90=3592191, 99=3592191, 99.9=3592191, 99.99=3592191] 
+2026-05-28 11:54:09:748 290 sec: 177 operations; 0.2 current ops/sec; est completion in 22 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=2, Max=4038655, Min=3657728, Avg=3848192, 90=4038655, 99=4038655, 99.9=4038655, 99.99=4038655] 
+2026-05-28 11:54:19:748 300 sec: 180 operations; 0.3 current ops/sec; est completion in 22 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=4059135, Min=3553280, Avg=3726336, 90=4059135, 99=4059135, 99.9=4059135, 99.99=4059135] 
+2026-05-28 11:54:29:748 310 sec: 183 operations; 0.3 current ops/sec; est completion in 23 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3567615, Min=3504128, Avg=3535189.33, 90=3567615, 99=3567615, 99.9=3567615, 99.99=3567615] 
+2026-05-28 11:54:39:748 320 sec: 186 operations; 0.3 current ops/sec; est completion in 23 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3835903, Min=3454976, Avg=3589802.67, 90=3835903, 99=3835903, 99.9=3835903, 99.99=3835903] 
+2026-05-28 11:54:49:748 330 sec: 188 operations; 0.2 current ops/sec; est completion in 23 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=2, Max=3915775, Min=3514368, Avg=3715072, 90=3915775, 99=3915775, 99.9=3915775, 99.99=3915775] 
+2026-05-28 11:54:59:748 340 sec: 191 operations; 0.3 current ops/sec; est completion in 24 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3895295, Min=3534848, Avg=3677866.67, 90=3895295, 99=3895295, 99.9=3895295, 99.99=3895295] 
+2026-05-28 11:55:09:748 350 sec: 194 operations; 0.3 current ops/sec; est completion in 24 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3540991, Min=3493888, Avg=3522218.67, 90=3540991, 99=3540991, 99.9=3540991, 99.99=3540991] 
+2026-05-28 11:55:19:748 360 sec: 197 operations; 0.3 current ops/sec; est completion in 24 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3966975, Min=3518464, Avg=3694250.67, 90=3966975, 99=3966975, 99.9=3966975, 99.99=3966975] 
+2026-05-28 11:55:29:748 370 sec: 200 operations; 0.3 current ops/sec; est completion in 24 minutes [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=3, Max=3545087, Min=3491840, Avg=3510613.33, 90=3545087, 99=3545087, 99.9=3545087, 99.99=3545087] 
+2026-05-28 11:55:39:748 380 sec: 206 operations; 0.6 current ops/sec; est completion in 24 minutes [QUERY-query18: Count=6, Max=3586047, Min=447744, Avg=1619861.33, 90=1857535, 99=3586047, 99.9=3586047, 99.99=3586047] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:55:49:748 390 sec: 224 operations; 1.8 current ops/sec; est completion in 22 minutes [QUERY-query18: Count=18, Max=1217535, Min=171904, Avg=561376, 90=699391, 99=1217535, 99.9=1217535, 99.99=1217535] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:55:59:748 400 sec: 244 operations; 2 current ops/sec; est completion in 20 minutes [QUERY-query18: Count=20, Max=682495, Min=184192, Avg=512358.4, 90=665599, 99=682495, 99.9=682495, 99.99=682495] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:56:09:748 410 sec: 267 operations; 2.3 current ops/sec; est completion in 18 minutes [QUERY-query18: Count=23, Max=644095, Min=166144, Avg=439220.87, 90=637951, 99=644095, 99.9=644095, 99.99=644095] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:56:19:748 420 sec: 292 operations; 2.5 current ops/sec; est completion in 16 minutes [QUERY-query18: Count=25, Max=628223, Min=160000, Avg=404528.64, 90=575999, 99=628223, 99.9=628223, 99.99=628223] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:56:29:748 430 sec: 307 operations; 1.5 current ops/sec; est completion in 16 minutes [QUERY-query18: Count=8, Max=612351, Min=558592, Avg=576000, 90=591359, 99=612351, 99.9=612351, 99.99=612351] [QUERY-query19: Count=7, Max=798207, Min=756736, Avg=766939.43, 90=766975, 99=798207, 99.9=798207, 99.99=798207] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:56:39:748 440 sec: 320 operations; 1.3 current ops/sec; est completion in 15 minutes [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=13, Max=772095, Min=755200, Avg=762308.92, 90=770047, 99=772095, 99.9=772095, 99.99=772095] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:56:49:748 450 sec: 333 operations; 1.3 current ops/sec; est completion in 15 minutes [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=13, Max=774143, Min=755200, Avg=761836.31, 90=769023, 99=774143, 99.9=774143, 99.99=774143] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:56:59:748 460 sec: 346 operations; 1.3 current ops/sec; est completion in 14 minutes [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=13, Max=770559, Min=761344, Avg=764278.15, 90=768511, 99=770559, 99.9=770559, 99.99=770559] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:57:09:748 470 sec: 359 operations; 1.3 current ops/sec; est completion in 14 minutes [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=13, Max=777215, Min=758784, Avg=767271.38, 90=771583, 99=777215, 99.9=777215, 99.99=777215] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:57:19:748 480 sec: 372 operations; 1.3 current ops/sec; est completion in 13 minutes [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=13, Max=773631, Min=759808, Avg=765892.92, 90=770559, 99=773631, 99.9=773631, 99.99=773631] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:57:29:748 490 sec: 385 operations; 1.3 current ops/sec; est completion in 13 minutes [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=13, Max=774655, Min=761344, Avg=767940.92, 90=773631, 99=774655, 99.9=774655, 99.99=774655] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:57:39:748 500 sec: 398 operations; 1.3 current ops/sec; est completion in 12 minutes [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=13, Max=771071, Min=763392, Avg=767192.62, 90=770559, 99=771071, 99.9=771071, 99.99=771071] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:57:49:748 510 sec: 411 operations; 1.3 current ops/sec; est completion in 12 minutes [QUERY-query20: Count=11, Max=795135, Min=752640, Avg=762484.36, 90=765951, 99=795135, 99.9=795135, 99.99=795135] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=2, Max=780287, Min=775680, Avg=777984, 90=780287, 99=780287, 99.9=780287, 99.99=780287] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:57:59:748 520 sec: 424 operations; 1.3 current ops/sec; est completion in 11 minutes [QUERY-query20: Count=13, Max=759295, Min=751616, Avg=754707.69, 90=758783, 99=759295, 99.9=759295, 99.99=759295] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:58:09:748 530 sec: 438 operations; 1.4 current ops/sec; est completion in 11 minutes [QUERY-query20: Count=14, Max=762367, Min=748032, Avg=755968, 90=759807, 99=762367, 99.9=762367, 99.99=762367] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:58:19:748 540 sec: 451 operations; 1.3 current ops/sec; est completion in 10 minutes [QUERY-query20: Count=13, Max=758271, Min=749056, Avg=754156.31, 90=756735, 99=758271, 99.9=758271, 99.99=758271] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:58:29:748 550 sec: 464 operations; 1.3 current ops/sec; est completion in 10 minutes [QUERY-query20: Count=13, Max=771583, Min=750592, Avg=759433.85, 90=769023, 99=771583, 99.9=771583, 99.99=771583] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:58:39:748 560 sec: 477 operations; 1.3 current ops/sec; est completion in 10 minutes [QUERY-query20: Count=13, Max=764415, Min=754688, Avg=758961.23, 90=761855, 99=764415, 99.9=764415, 99.99=764415] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:58:49:748 570 sec: 490 operations; 1.3 current ops/sec; est completion in 9 minutes [QUERY-query20: Count=13, Max=759807, Min=751616, Avg=756164.92, 90=758783, 99=759807, 99.9=759807, 99.99=759807] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:58:59:748 580 sec: 509 operations; 1.9 current ops/sec; est completion in 9 minutes [QUERY-query21: Count=9, Max=792063, Min=137472, Avg=304206.22, 90=325375, 99=792063, 99.9=792063, 99.99=792063] [QUERY-query20: Count=10, Max=761343, Min=748544, Avg=754790.4, 90=758271, 99=761343, 99.9=761343, 99.99=761343] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:59:09:748 590 sec: 541 operations; 3.2 current ops/sec; est completion in 8 minutes [QUERY-query21: Count=32, Max=728063, Min=128064, Avg=318864, 90=502271, 99=728063, 99.9=728063, 99.99=728063] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:59:19:748 600 sec: 567 operations; 2.6 current ops/sec; est completion in 7 minutes [QUERY-query21: Count=26, Max=524799, Min=125632, Avg=386173.54, 90=498175, 99=524799, 99.9=524799, 99.99=524799] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:59:29:748 610 sec: 599 operations; 3.2 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=32, Max=504063, Min=124544, Avg=303626, 90=499199, 99=504063, 99.9=504063, 99.99=504063] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:59:39:748 620 sec: 604 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=1, Max=483327, Min=483072, Avg=483200, 90=483327, 99=483327, 99.9=483327, 99.99=483327] [QUERY-query22: Count=4, Max=2213887, Min=2154496, Avg=2177536, 90=2213887, 99=2213887, 99.9=2213887, 99.99=2213887] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:59:49:748 630 sec: 609 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2209791, Min=2142208, Avg=2183372.8, 90=2209791, 99=2209791, 99.9=2209791, 99.99=2209791] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 11:59:59:748 640 sec: 613 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2289663, Min=2197504, Avg=2244096, 90=2289663, 99=2289663, 99.9=2289663, 99.99=2289663] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:00:09:748 650 sec: 618 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2238463, Min=2187264, Avg=2207539.2, 90=2238463, 99=2238463, 99.9=2238463, 99.99=2238463] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:00:19:748 660 sec: 622 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2232319, Min=2134016, Avg=2183680, 90=2232319, 99=2232319, 99.9=2232319, 99.99=2232319] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:00:29:748 670 sec: 627 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2236415, Min=2156544, Avg=2195251.2, 90=2236415, 99=2236415, 99.9=2236415, 99.99=2236415] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:00:39:748 680 sec: 631 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2220031, Min=2154496, Avg=2192896, 90=2220031, 99=2220031, 99.9=2220031, 99.99=2220031] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:00:49:748 690 sec: 636 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2256895, Min=2174976, Avg=2203033.6, 90=2256895, 99=2256895, 99.9=2256895, 99.99=2256895] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:00:59:748 700 sec: 640 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2248703, Min=2140160, Avg=2192384, 90=2248703, 99=2248703, 99.9=2248703, 99.99=2248703] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:01:09:748 710 sec: 645 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2228223, Min=2166784, Avg=2200576, 90=2228223, 99=2228223, 99.9=2228223, 99.99=2228223] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:01:19:748 720 sec: 650 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2242559, Min=2164736, Avg=2197299.2, 90=2242559, 99=2242559, 99.9=2242559, 99.99=2242559] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:01:29:748 730 sec: 654 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2248703, Min=2177024, Avg=2209792, 90=2248703, 99=2248703, 99.9=2248703, 99.99=2248703] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:01:39:748 740 sec: 659 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2244607, Min=2142208, Avg=2187059.2, 90=2244607, 99=2244607, 99.9=2244607, 99.99=2244607] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:01:49:748 750 sec: 663 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2236415, Min=2138112, Avg=2169856, 90=2236415, 99=2236415, 99.9=2236415, 99.99=2236415] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:01:59:748 760 sec: 668 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2220031, Min=2162688, Avg=2195660.8, 90=2220031, 99=2220031, 99.9=2220031, 99.99=2220031] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:02:09:748 770 sec: 672 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2213887, Min=2150400, Avg=2194432, 90=2213887, 99=2213887, 99.9=2213887, 99.99=2213887] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:02:19:748 780 sec: 677 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2244607, Min=2177024, Avg=2207129.6, 90=2244607, 99=2244607, 99.9=2244607, 99.99=2244607] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:02:29:748 790 sec: 681 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2299903, Min=2179072, Avg=2231808, 90=2299903, 99=2299903, 99.9=2299903, 99.99=2299903] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:02:39:748 800 sec: 686 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2230271, Min=2164736, Avg=2192384, 90=2230271, 99=2230271, 99.9=2230271, 99.99=2230271] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:02:49:748 810 sec: 690 operations; 0.4 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=4, Max=2217983, Min=2189312, Avg=2204672, 90=2217983, 99=2217983, 99.9=2217983, 99.99=2217983] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:02:59:748 820 sec: 695 operations; 0.5 current ops/sec; est completion in 6 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2226175, Min=2150400, Avg=2188697.6, 90=2226175, 99=2226175, 99.9=2226175, 99.99=2226175] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:03:09:748 830 sec: 700 operations; 0.5 current ops/sec; est completion in 5 minutes [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=5, Max=2232319, Min=2127872, Avg=2190336, 90=2232319, 99=2232319, 99.9=2232319, 99.99=2232319] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:03:19:748 840 sec: 707 operations; 0.7 current ops/sec; est completion in 5 minutes [QUERY-query23: Count=7, Max=1392639, Min=1271808, Avg=1330249.14, 90=1381375, 99=1392639, 99.9=1392639, 99.99=1392639] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:03:29:748 850 sec: 715 operations; 0.8 current ops/sec; est completion in 5 minutes [QUERY-query23: Count=8, Max=1360895, Min=1280000, Avg=1318016, 90=1343487, 99=1360895, 99.9=1360895, 99.99=1360895] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:03:39:748 860 sec: 722 operations; 0.7 current ops/sec; est completion in 5 minutes [QUERY-query23: Count=7, Max=1353727, Min=1271808, Avg=1317522.29, 90=1333247, 99=1353727, 99.9=1353727, 99.99=1353727] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:03:49:748 870 sec: 730 operations; 0.8 current ops/sec; est completion in 5 minutes [QUERY-query23: Count=8, Max=1347583, Min=1274880, Avg=1307264, 90=1344511, 99=1347583, 99.9=1347583, 99.99=1347583] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:03:59:748 880 sec: 737 operations; 0.7 current ops/sec; est completion in 5 minutes [QUERY-query23: Count=7, Max=1396735, Min=1273856, Avg=1330249.14, 90=1385471, 99=1396735, 99.9=1396735, 99.99=1396735] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:04:09:748 890 sec: 745 operations; 0.8 current ops/sec; est completion in 5 minutes [QUERY-query23: Count=8, Max=1360895, Min=1277952, Avg=1316864, 90=1348607, 99=1360895, 99.9=1360895, 99.99=1360895] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:04:19:748 900 sec: 753 operations; 0.8 current ops/sec; est completion in 4 minutes [QUERY-query23: Count=8, Max=1355775, Min=1270784, Avg=1318528, 90=1339391, 99=1355775, 99.9=1355775, 99.99=1355775] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:04:29:748 910 sec: 760 operations; 0.7 current ops/sec; est completion in 4 minutes [QUERY-query23: Count=7, Max=1368063, Min=1275904, Avg=1323373.71, 90=1356799, 99=1368063, 99.9=1368063, 99.99=1368063] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:04:39:748 920 sec: 768 operations; 0.8 current ops/sec; est completion in 4 minutes [QUERY-query23: Count=8, Max=1375231, Min=1281024, Avg=1327872, 90=1372159, 99=1375231, 99.9=1375231, 99.99=1375231] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:04:49:748 930 sec: 775 operations; 0.7 current ops/sec; est completion in 4 minutes [QUERY-query23: Count=7, Max=1377279, Min=1282048, Avg=1330249.14, 90=1376255, 99=1377279, 99.9=1377279, 99.99=1377279] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:04:59:748 940 sec: 783 operations; 0.8 current ops/sec; est completion in 4 minutes [QUERY-query23: Count=8, Max=1376255, Min=1295360, Avg=1333760, 90=1361919, 99=1376255, 99.9=1376255, 99.99=1376255] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:05:09:748 950 sec: 790 operations; 0.7 current ops/sec; est completion in 4 minutes [QUERY-query23: Count=7, Max=1390591, Min=1299456, Avg=1342390.86, 90=1370111, 99=1390591, 99.9=1390591, 99.99=1390591] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:05:19:748 960 sec: 798 operations; 0.8 current ops/sec; est completion in 4 minutes [QUERY-query23: Count=8, Max=1381375, Min=1272832, Avg=1318912, 90=1352703, 99=1381375, 99.9=1381375, 99.99=1381375] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:05:29:748 970 sec: 807 operations; 0.9 current ops/sec; est completion in 3 minutes [QUERY-query23: Count=2, Max=1381375, Min=1330176, Avg=1355776, 90=1381375, 99=1381375, 99.9=1381375, 99.99=1381375] [QUERY-query24: Count=7, Max=1027583, Min=999936, Avg=1015771.43, 90=1023999, 99=1027583, 99.9=1027583, 99.99=1027583] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:05:39:748 980 sec: 817 operations; 1 current ops/sec; est completion in 3 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=10, Max=1037823, Min=1004032, Avg=1017600, 90=1023487, 99=1037823, 99.9=1037823, 99.99=1037823] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:05:49:748 990 sec: 827 operations; 1 current ops/sec; est completion in 3 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=10, Max=1050623, Min=1000960, Avg=1017011.2, 90=1021951, 99=1050623, 99.9=1050623, 99.99=1050623] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:05:59:748 1000 sec: 837 operations; 1 current ops/sec; est completion in 3 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=10, Max=1029631, Min=1006080, Avg=1020518.4, 90=1029119, 99=1029631, 99.9=1029631, 99.99=1029631] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:06:09:748 1010 sec: 846 operations; 0.9 current ops/sec; est completion in 3 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=9, Max=1039871, Min=1009152, Avg=1020160, 90=1026559, 99=1039871, 99.9=1039871, 99.99=1039871] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:06:19:748 1020 sec: 856 operations; 1 current ops/sec; est completion in 2 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=10, Max=1037311, Min=1006080, Avg=1019699.2, 90=1025535, 99=1037311, 99.9=1037311, 99.99=1037311] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:06:29:748 1030 sec: 866 operations; 1 current ops/sec; est completion in 2 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=10, Max=1026559, Min=1001472, Avg=1013862.4, 90=1022463, 99=1026559, 99.9=1026559, 99.99=1026559] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:06:39:748 1040 sec: 876 operations; 1 current ops/sec; est completion in 2 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=10, Max=1026559, Min=1003008, Avg=1016883.2, 90=1025535, 99=1026559, 99.9=1026559, 99.99=1026559] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:06:49:748 1050 sec: 886 operations; 1 current ops/sec; est completion in 2 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=10, Max=1051647, Min=1012736, Avg=1027712, 90=1038335, 99=1051647, 99.9=1051647, 99.99=1051647] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:06:59:748 1060 sec: 895 operations; 0.9 current ops/sec; est completion in 2 minutes [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=9, Max=1034751, Min=1020416, Avg=1027498.67, 90=1031679, 99=1034751, 99.9=1034751, 99.99=1034751] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:07:09:748 1070 sec: 905 operations; 1 current ops/sec; est completion in 1 minute [QUERY-query25: Count=5, Max=1121279, Min=1076224, Avg=1087180.8, 90=1121279, 99=1121279, 99.9=1121279, 99.99=1121279] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=5, Max=1044991, Min=1011200, Avg=1025280, 90=1044991, 99=1044991, 99.9=1044991, 99.99=1044991] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:07:19:748 1080 sec: 914 operations; 0.9 current ops/sec; est completion in 1 minute [QUERY-query25: Count=9, Max=1121279, Min=1075200, Avg=1083904, 90=1084415, 99=1121279, 99.9=1121279, 99.99=1121279] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:07:29:748 1090 sec: 923 operations; 0.9 current ops/sec; est completion in 1 minute [QUERY-query25: Count=9, Max=1088511, Min=1080320, Avg=1084472.89, 90=1087487, 99=1088511, 99.9=1088511, 99.99=1088511] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:07:39:748 1100 sec: 932 operations; 0.9 current ops/sec; est completion in 1 minute [QUERY-query25: Count=9, Max=1091583, Min=1082368, Avg=1086634.67, 90=1088511, 99=1091583, 99.9=1091583, 99.99=1091583] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:07:49:748 1110 sec: 942 operations; 1 current ops/sec; est completion in 1 minute [QUERY-query25: Count=10, Max=1094655, Min=1080320, Avg=1087385.6, 90=1091583, 99=1094655, 99.9=1094655, 99.99=1094655] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:07:59:748 1120 sec: 951 operations; 0.9 current ops/sec; est completion in 58 seconds [QUERY-query25: Count=9, Max=1112063, Min=1085440, Avg=1092096, 90=1095679, 99=1112063, 99.9=1112063, 99.99=1112063] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:08:09:748 1130 sec: 960 operations; 0.9 current ops/sec; est completion in 48 seconds [QUERY-query25: Count=9, Max=1108991, Min=1086464, Avg=1095509.33, 90=1108991, 99=1108991, 99.9=1108991, 99.99=1108991] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:08:19:748 1140 sec: 969 operations; 0.9 current ops/sec; est completion in 37 seconds [QUERY-query25: Count=9, Max=1097727, Min=1081344, Avg=1086634.67, 90=1089535, 99=1097727, 99.9=1097727, 99.99=1097727] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:08:29:748 1150 sec: 978 operations; 0.9 current ops/sec; est completion in 26 seconds [QUERY-query25: Count=9, Max=1092607, Min=1084416, Avg=1087203.56, 90=1088511, 99=1092607, 99.9=1092607, 99.99=1092607] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:08:39:748 1160 sec: 988 operations; 1 current ops/sec; est completion in 15 seconds [QUERY-query25: Count=10, Max=1088511, Min=1082368, Avg=1085337.6, 90=1087487, 99=1088511, 99.9=1088511, 99.99=1088511] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+2026-05-28 12:08:49:748 1170 sec: 997 operations; 0.9 current ops/sec; est completion in 4 second [QUERY-query25: Count=9, Max=1094655, Min=1083392, Avg=1087317.33, 90=1092607, 99=1094655, 99.9=1094655, 99.99=1094655] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+Could not wait until max specified time, TerminatorThread interrupted.
+2026-05-28 12:08:52:779 1173 sec: 1000 operations; 0.99 current ops/sec; [QUERY-query25: Count=3, Max=1089535, Min=1084416, Avg=1086634.67, 90=1089535, 99=1089535, 99.9=1089535, 99.99=1089535] [QUERY-query23: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query24: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query21: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query22: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query20: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [CLEANUP: Count=1, Max=2, Min=2, Avg=2, 90=2, 99=2, 99.9=2, 99.99=2] [QUERY-query18: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query19: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query16: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] [QUERY-query17: Count=0, Max=0, Min=9223372036854775807, Avg=�, 90=0, 99=0, 99.9=0, 99.99=0] 
+[OVERALL], RunTime(ms), 1173031
+[OVERALL], Throughput(ops/sec), 0.8524923893741939
+[TOTAL_GCS_PS_Scavenge], Count, 1
+[TOTAL_GC_TIME_PS_Scavenge], Time(ms), 3
+[TOTAL_GC_TIME_%_PS_Scavenge], Time(%), 2.5574771681225817E-4
+[TOTAL_GCS_PS_MarkSweep], Count, 0
+[TOTAL_GC_TIME_PS_MarkSweep], Time(ms), 0
+[TOTAL_GC_TIME_%_PS_MarkSweep], Time(%), 0.0
+[TOTAL_GCs], Count, 1
+[TOTAL_GC_TIME], Time(ms), 3
+[TOTAL_GC_TIME_%], Time(%), 2.5574771681225817E-4
+[QUERY-query25], Operations, 100
+[QUERY-query25], AverageLatency(us), 1087569.92
+[QUERY-query25], MinLatency(us), 1075200
+[QUERY-query25], MaxLatency(us), 1121279
+[QUERY-query25], 95thPercentileLatency(us), 1099775
+[QUERY-query25], 99thPercentileLatency(us), 1121279
+[QUERY-query25], Return=OK, 100
+[QUERY-query23], Operations, 100
+[QUERY-query23], AverageLatency(us), 1324595.2
+[QUERY-query23], MinLatency(us), 1270784
+[QUERY-query23], MaxLatency(us), 1396735
+[QUERY-query23], 95thPercentileLatency(us), 1381375
+[QUERY-query23], 99thPercentileLatency(us), 1392639
+[QUERY-query23], Return=OK, 100
+[QUERY-query24], Operations, 100
+[QUERY-query24], AverageLatency(us), 1019985.92
+[QUERY-query24], MinLatency(us), 999936
+[QUERY-query24], MaxLatency(us), 1051647
+[QUERY-query24], 95thPercentileLatency(us), 1037823
+[QUERY-query24], 99thPercentileLatency(us), 1050623
+[QUERY-query24], Return=OK, 100
+[QUERY-query21], Operations, 100
+[QUERY-query21], AverageLatency(us), 331812.48
+[QUERY-query21], MinLatency(us), 124544
+[QUERY-query21], MaxLatency(us), 792063
+[QUERY-query21], 95thPercentileLatency(us), 507647
+[QUERY-query21], 99thPercentileLatency(us), 728063
+[QUERY-query21], Return=OK, 100
+[QUERY-query22], Operations, 100
+[QUERY-query22], AverageLatency(us), 2197463.04
+[QUERY-query22], MinLatency(us), 2127872
+[QUERY-query22], MaxLatency(us), 2299903
+[QUERY-query22], 95thPercentileLatency(us), 2248703
+[QUERY-query22], 99thPercentileLatency(us), 2289663
+[QUERY-query22], Return=OK, 100
+[QUERY-query20], Operations, 100
+[QUERY-query20], AverageLatency(us), 757032.96
+[QUERY-query20], MinLatency(us), 748032
+[QUERY-query20], MaxLatency(us), 795135
+[QUERY-query20], 95thPercentileLatency(us), 762367
+[QUERY-query20], 99thPercentileLatency(us), 771583
+[QUERY-query20], Return=OK, 100
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2.0
+[CLEANUP], MinLatency(us), 2
+[CLEANUP], MaxLatency(us), 2
+[CLEANUP], 95thPercentileLatency(us), 2
+[CLEANUP], 99thPercentileLatency(us), 2
+[QUERY-query18], Operations, 100
+[QUERY-query18], AverageLatency(us), 548944.0
+[QUERY-query18], MinLatency(us), 160000
+[QUERY-query18], MaxLatency(us), 3586047
+[QUERY-query18], 95thPercentileLatency(us), 1168383
+[QUERY-query18], 99thPercentileLatency(us), 1857535
+[QUERY-query18], Return=OK, 100
+[QUERY-query19], Operations, 100
+[QUERY-query19], AverageLatency(us), 765619.2
+[QUERY-query19], MinLatency(us), 755200
+[QUERY-query19], MaxLatency(us), 798207
+[QUERY-query19], 95thPercentileLatency(us), 774143
+[QUERY-query19], 99thPercentileLatency(us), 780287
+[QUERY-query19], Return=OK, 100
+[QUERY-query16], Operations, 100
+[QUERY-query16], AverageLatency(us), 78343.36
+[QUERY-query16], MinLatency(us), 29872
+[QUERY-query16], MaxLatency(us), 277247
+[QUERY-query16], 95thPercentileLatency(us), 128447
+[QUERY-query16], 99thPercentileLatency(us), 181631
+[QUERY-query16], Return=OK, 100
+[QUERY-query17], Operations, 100
+[QUERY-query17], AverageLatency(us), 3616839.68
+[QUERY-query17], MinLatency(us), 3426304
+[QUERY-query17], MaxLatency(us), 7503871
+[QUERY-query17], 95thPercentileLatency(us), 3915775
+[QUERY-query17], 99thPercentileLatency(us), 4059135
+[QUERY-query17], Return=OK, 100

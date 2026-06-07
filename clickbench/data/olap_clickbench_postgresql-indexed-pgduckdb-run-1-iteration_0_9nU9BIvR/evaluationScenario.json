@@ -1,0 +1,151 @@
+{
+  "metadata": {
+    "userId": "benchANT",
+    "projectId": "olap",
+    "batchId": "clickbench",
+    "configurationId": "postgresql-indexed-pgduckdb-run-1-iteration",
+    "executions": 1,
+    "executionCounter": 1,
+    "parentRunId": "olap_clickbench_postgresql-indexed-load_0_fDRpVaDg",
+    "keepDeployment": true
+  },
+  "resourceProvider": {
+    "name": "EC2",
+    "api": "EC2"
+  },
+  "dbmsDeployment": {
+    "dbmsType": "POSTGRESQL",
+    "operationType": "DBMS",
+    "version": "17",
+    "DBMS": {
+      "dataNodes": {
+        "numberOfNodes": 1,
+        "resource": {
+          "ec2Vm": {
+            "regionName": "eu-central-1",
+            "instanceType": "m7i.2xlarge",
+            "architecture": "x86_64",
+            "imageDistribution": "ubuntu",
+            "imageVersion": "22.04",
+            "volumeType": "GP3",
+            "volumeSize": 500,
+            "iops": 12000
+          }
+        },
+        "replicationFactor": 1,
+        "memoryAllocation": 0.25,
+        "postgresqlConfiguration": {
+          "useDuckDBExtension": true,
+          "effectiveCacheSize": "24GB",
+          "maintenanceWorkMem": "4GB",
+          "checkpointCompletionTarget": 0.9,
+          "walBuffers": "16MB",
+          "defaultStatisticsTarget": 500,
+          "randomPageCost": 4.0,
+          "effectiveIoConcurrency": 200,
+          "workMemory": "38836kB",
+          "minWalSize": "4GB",
+          "maxWalSize": "16GB",
+          "maxWorkerProcesses": 8,
+          "maxParallelWorkersPerGather": 4,
+          "maxParallelWorkers": 8,
+          "maxParallelMaintenanceWorkers": 4,
+          "hugePages": "try",
+          "extensions": {
+            "pgduckdb": {
+              "version": "v1.1.1",
+              "duckDbForceExecution": false,
+              "memoryLimit": 24576,
+              "workerThreads": 8,
+              "maxWorkersPerPostgresScan": 4,
+              "threadsForPostgresScan": 4
+            }
+          }
+        }
+      }
+    }
+  },
+  "benchmarkDeployment": {
+    "benchmarkNodes": {
+      "numberOfNodes": 1,
+      "resource": {
+        "ec2Vm": {
+          "regionName": "eu-central-1",
+          "instanceType": "c6i.4xlarge",
+          "architecture": "x86_64",
+          "imageDistribution": "ubuntu",
+          "imageVersion": "22.04",
+          "volumeType": "GP2",
+          "volumeSize": 250
+        }
+      }
+    }
+  },
+  "benchmark": {
+    "id": "clickbench",
+    "distribution": "CLICKBENCH",
+    "version": "benchant-olap-main",
+    "clickBench": {
+      "dbmsEndpoints": [],
+      "workload": {
+        "s3SchemaUri": "s3://benchant-olap-data/clickbench/postgresql/schema_indexes.sql",
+        "s3DataUri": "s3://benchant-olap-data/clickbench/hits.csv.gz",
+        "workloadClass": "site.ycsb.workloads.OlapWorkload",
+        "maxExecutionTime": 14400,
+        "threadCount": 1,
+        "operationCount": 43,
+        "querySet": "CLICKBENCH",
+        "queriesLowerBound": 1,
+        "queriesUpperBound": 43,
+        "queryList": [
+          "query01",
+          "query02",
+          "query03",
+          "query04",
+          "query05",
+          "query06",
+          "query07",
+          "query08",
+          "query09",
+          "query10",
+          "query11",
+          "query12",
+          "query13",
+          "query14",
+          "query15",
+          "query16",
+          "query17",
+          "query18",
+          "query19",
+          "query20",
+          "query21",
+          "query22",
+          "query23",
+          "query24",
+          "query25",
+          "query26",
+          "query27",
+          "query28",
+          "query29",
+          "query30",
+          "query31",
+          "query32",
+          "query33",
+          "query34",
+          "query35",
+          "query36",
+          "query37",
+          "query38",
+          "query39",
+          "query40",
+          "query41",
+          "query42",
+          "query43"
+        ],
+        "querySelectionStrategy": "SEQUENTIAL",
+        "sequentialCount": 1,
+        "debug": false
+      }
+    }
+  }
+}

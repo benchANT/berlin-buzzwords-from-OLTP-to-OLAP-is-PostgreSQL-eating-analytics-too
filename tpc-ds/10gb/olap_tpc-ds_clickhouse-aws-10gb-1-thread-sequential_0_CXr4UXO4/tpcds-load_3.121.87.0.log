@@ -1,0 +1,217 @@
+Thu May 28 08:13:13 UTC 2026
+=== Loading TPC-DS data into ClickHouse Cloud from S3 ===
+    Host       : wu21xpplbe.eu-central-1.aws.clickhouse.cloud:9440
+    Database   : benchantdb
+    User       : default
+    S3 data    : s3://benchant-olap-data/tpc-ds/postgresql/data/10gb
+    S3 schema  : s3://benchant-olap-data/tpc-ds/clickhouse/schemas/tpcds-default.sql
+
+--- Downloading schema SQL from S3 ---
+Completed 22.0 KiB/22.0 KiB (322.2 KiB/s) with 1 file(s) remainingdownload: s3://benchant-olap-data/tpc-ds/clickhouse/schemas/tpcds-default.sql to ../../tmp/tmp.HKpvQJwk2w.sql
+--- Applying schema from s3://benchant-olap-data/tpc-ds/clickhouse/schemas/tpcds-default.sql ---
+[DONE]  Schema created.
+
+--- Dimension tables ---
+[LOAD]  call_center <- call_center_1_10.csv
+[DONE]  call_center_1_10.csv
+[LOAD]  catalog_page <- catalog_page_1_10.csv
+[DONE]  catalog_page_1_10.csv
+[LOAD]  customer <- customer_1_10.csv
+[DONE]  customer_1_10.csv
+[LOAD]  customer_address <- customer_address_1_10.csv
+[DONE]  customer_address_1_10.csv
+[LOAD]  customer_demographics <- customer_demographics_10_10.csv
+[DONE]  customer_demographics_10_10.csv
+[LOAD]  customer_demographics <- customer_demographics_1_10.csv
+[DONE]  customer_demographics_1_10.csv
+[LOAD]  customer_demographics <- customer_demographics_2_10.csv
+[DONE]  customer_demographics_2_10.csv
+[LOAD]  customer_demographics <- customer_demographics_3_10.csv
+[DONE]  customer_demographics_3_10.csv
+[LOAD]  customer_demographics <- customer_demographics_4_10.csv
+[DONE]  customer_demographics_4_10.csv
+[LOAD]  customer_demographics <- customer_demographics_5_10.csv
+[DONE]  customer_demographics_5_10.csv
+[LOAD]  customer_demographics <- customer_demographics_6_10.csv
+[DONE]  customer_demographics_6_10.csv
+[LOAD]  customer_demographics <- customer_demographics_7_10.csv
+[DONE]  customer_demographics_7_10.csv
+[LOAD]  customer_demographics <- customer_demographics_8_10.csv
+[DONE]  customer_demographics_8_10.csv
+[LOAD]  customer_demographics <- customer_demographics_9_10.csv
+[DONE]  customer_demographics_9_10.csv
+[LOAD]  date_dim <- date_dim_1_10.csv
+[DONE]  date_dim_1_10.csv
+[LOAD]  household_demographics <- household_demographics_1_10.csv
+[DONE]  household_demographics_1_10.csv
+[LOAD]  income_band <- income_band_1_10.csv
+[DONE]  income_band_1_10.csv
+[LOAD]  item <- item_1_10.csv
+[DONE]  item_1_10.csv
+[LOAD]  promotion <- promotion_1_10.csv
+[DONE]  promotion_1_10.csv
+[LOAD]  reason <- reason_1_10.csv
+[DONE]  reason_1_10.csv
+[LOAD]  ship_mode <- ship_mode_1_10.csv
+[DONE]  ship_mode_1_10.csv
+[LOAD]  store <- store_1_10.csv
+[DONE]  store_1_10.csv
+[LOAD]  time_dim <- time_dim_1_10.csv
+[DONE]  time_dim_1_10.csv
+[LOAD]  warehouse <- warehouse_1_10.csv
+[DONE]  warehouse_1_10.csv
+[LOAD]  web_page <- web_page_1_10.csv
+[DONE]  web_page_1_10.csv
+[LOAD]  web_site <- web_site_1_10.csv
+[DONE]  web_site_1_10.csv
+
+--- Fact / large tables (parallel, max 4 jobs) ---
+[LOAD]  store_returns <- store_returns_10_10.csv
+[LOAD]  inventory <- inventory_10_10.csv
+[LOAD]  catalog_returns <- catalog_returns_10_10.csv
+[LOAD]  web_returns <- web_returns_1_10.csv
+[DONE]  catalog_returns_10_10.csv
+[LOAD]  catalog_returns <- catalog_returns_1_10.csv
+[DONE]  store_returns_10_10.csv
+[LOAD]  store_returns <- store_returns_1_10.csv
+[DONE]  web_returns_1_10.csv
+[DONE]  catalog_returns_1_10.csv
+[LOAD]  catalog_returns <- catalog_returns_2_10.csv
+[DONE]  store_returns_1_10.csv
+[LOAD]  store_returns <- store_returns_2_10.csv
+[DONE]  inventory_10_10.csv
+[LOAD]  inventory <- inventory_1_10.csv
+[LOAD]  store_sales <- store_sales_10_10.csv
+[DONE]  catalog_returns_2_10.csv
+[LOAD]  catalog_returns <- catalog_returns_3_10.csv
+[DONE]  store_returns_2_10.csv
+[LOAD]  store_returns <- store_returns_3_10.csv
+[DONE]  catalog_returns_3_10.csv
+[LOAD]  catalog_returns <- catalog_returns_4_10.csv
+[DONE]  store_returns_3_10.csv
+[LOAD]  store_returns <- store_returns_4_10.csv
+[DONE]  inventory_1_10.csv
+[LOAD]  inventory <- inventory_2_10.csv
+[DONE]  catalog_returns_4_10.csv
+[LOAD]  catalog_returns <- catalog_returns_5_10.csv
+[DONE]  store_returns_4_10.csv
+[LOAD]  store_returns <- store_returns_5_10.csv
+[DONE]  store_sales_10_10.csv
+[LOAD]  store_sales <- store_sales_1_10.csv
+[DONE]  catalog_returns_5_10.csv
+[LOAD]  catalog_returns <- catalog_returns_6_10.csv
+[DONE]  store_returns_5_10.csv
+[LOAD]  store_returns <- store_returns_6_10.csv
+[DONE]  catalog_returns_6_10.csv
+[LOAD]  catalog_returns <- catalog_returns_7_10.csv
+[DONE]  inventory_2_10.csv
+[LOAD]  inventory <- inventory_3_10.csv
+[DONE]  store_returns_6_10.csv
+[LOAD]  store_returns <- store_returns_7_10.csv
+[DONE]  catalog_returns_7_10.csv
+[LOAD]  catalog_returns <- catalog_returns_8_10.csv
+[DONE]  store_sales_1_10.csv
+[LOAD]  store_sales <- store_sales_2_10.csv
+[DONE]  catalog_returns_8_10.csv
+[LOAD]  catalog_returns <- catalog_returns_9_10.csv
+[DONE]  store_returns_7_10.csv
+[LOAD]  store_returns <- store_returns_8_10.csv
+[DONE]  inventory_3_10.csv
+[LOAD]  inventory <- inventory_4_10.csv
+[DONE]  catalog_returns_9_10.csv
+[DONE]  store_returns_8_10.csv
+[LOAD]  store_returns <- store_returns_9_10.csv
+[LOAD]  catalog_sales <- catalog_sales_10_10.csv
+[DONE]  store_returns_9_10.csv
+[DONE]  inventory_4_10.csv
+[LOAD]  inventory <- inventory_5_10.csv
+[DONE]  store_sales_2_10.csv
+[LOAD]  store_sales <- store_sales_3_10.csv
+[LOAD]  web_sales <- web_sales_1_10.csv
+[DONE]  catalog_sales_10_10.csv
+[LOAD]  catalog_sales <- catalog_sales_1_10.csv
+[DONE]  inventory_5_10.csv
+[LOAD]  inventory <- inventory_6_10.csv
+[DONE]  store_sales_3_10.csv
+[LOAD]  store_sales <- store_sales_4_10.csv
+[DONE]  catalog_sales_1_10.csv
+[LOAD]  catalog_sales <- catalog_sales_2_10.csv
+[DONE]  inventory_6_10.csv
+[LOAD]  inventory <- inventory_7_10.csv
+[DONE]  store_sales_4_10.csv
+[LOAD]  store_sales <- store_sales_5_10.csv
+[DONE]  catalog_sales_2_10.csv
+[LOAD]  catalog_sales <- catalog_sales_3_10.csv
+[DONE]  inventory_7_10.csv
+[LOAD]  inventory <- inventory_8_10.csv
+[DONE]  web_sales_1_10.csv
+[DONE]  catalog_sales_3_10.csv
+[LOAD]  catalog_sales <- catalog_sales_4_10.csv
+[DONE]  inventory_8_10.csv
+[LOAD]  inventory <- inventory_9_10.csv
+[DONE]  store_sales_5_10.csv
+[LOAD]  store_sales <- store_sales_6_10.csv
+[DONE]  catalog_sales_4_10.csv
+[LOAD]  catalog_sales <- catalog_sales_5_10.csv
+[DONE]  inventory_9_10.csv
+[DONE]  store_sales_6_10.csv
+[LOAD]  store_sales <- store_sales_7_10.csv
+[DONE]  catalog_sales_5_10.csv
+[LOAD]  catalog_sales <- catalog_sales_6_10.csv
+[DONE]  store_sales_7_10.csv
+[LOAD]  store_sales <- store_sales_8_10.csv
+[DONE]  catalog_sales_6_10.csv
+[LOAD]  catalog_sales <- catalog_sales_7_10.csv
+[DONE]  catalog_sales_7_10.csv
+[LOAD]  catalog_sales <- catalog_sales_8_10.csv
+[DONE]  store_sales_8_10.csv
+[LOAD]  store_sales <- store_sales_9_10.csv
+[DONE]  catalog_sales_8_10.csv
+[LOAD]  catalog_sales <- catalog_sales_9_10.csv
+[DONE]  store_sales_9_10.csv
+[DONE]  catalog_sales_9_10.csv
+
+=== Load complete ===
+Thu May 28 08:14:59 UTC 2026
+
+--- ClickHouse version ---
+25.12.1.1497
+
+--- Row counts per table ---
+    ┌─table──────────────────┬─rows────────────┐
+ 1. │ call_center            │ 24.00           │
+ 2. │ catalog_page           │ 12.00 thousand  │
+ 3. │ catalog_returns        │ 1.44 million    │
+ 4. │ catalog_sales          │ 14.40 million   │
+ 5. │ customer               │ 500.00 thousand │
+ 6. │ customer_address       │ 250.00 thousand │
+ 7. │ customer_demographics  │ 1.92 million    │
+ 8. │ date_dim               │ 73.05 thousand  │
+ 9. │ household_demographics │ 7.20 thousand   │
+10. │ income_band            │ 20.00           │
+11. │ inventory              │ 133.11 million  │
+12. │ item                   │ 102.00 thousand │
+13. │ promotion              │ 500.00          │
+14. │ reason                 │ 45.00           │
+15. │ ship_mode              │ 20.00           │
+16. │ store                  │ 102.00          │
+17. │ store_returns          │ 2.88 million    │
+18. │ store_sales            │ 28.80 million   │
+19. │ time_dim               │ 86.40 thousand  │
+20. │ warehouse              │ 10.00           │
+21. │ web_page               │ 200.00          │
+22. │ web_returns            │ 719.22 thousand │
+23. │ web_sales              │ 7.20 million    │
+24. │ web_site               │ 42.00           │
+    └────────────────────────┴─────────────────┘
+
+--- TPC-DS query parameters ---
+   ┌─parameter─────────────────┬─value───┐
+1. │ tpcds.parameter.cities    │ 6       │
+2. │ tpcds.parameter.counties  │ 3       │
+3. │ tpcds.parameter.csk.upper │ 500000  │
+4. │ tpcds.parameter.itm.lower │ 1       │
+5. │ tpcds.parameter.itm.upper │ 102000  │
+6. │ tpcds.parameter.sdt.lower │ 2450816 │
+7. │ tpcds.parameter.sdt.upper │ 2452642 │
+   └───────────────────────────┴─────────┘
